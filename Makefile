@@ -17,7 +17,8 @@ LIBFT			:= $(LIBFT_DIR)libft.a
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS_PREFIXED)
-	$(CC) $(OBJS_PREFIXED) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
+#	$(CC) $(OBJS_PREFIXED) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
+	$(CC) $(OBJS_PREFIXED) $(LIBFT_FLAGS) -o $(NAME)
 
 clean:
 	rm -rf $(OBJS_DIR)
@@ -34,13 +35,16 @@ $(LIBFT):
 
 $(OBJS_DIR)%.o : %.c so_long.h
 	mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -I$(MLX_DIR) -I$(LIBFT_DIR) -c $< -o $@
+#	$(CC) $(CFLAGS) -I$(MLX_DIR) -I$(LIBFT_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(LIBFT_DIR) -c $< -o $@
 
 valgrind:
 #	valgrind --leak-check=full --show-leak-kinds=all \
 			--track-origins=yes ./so_long
-	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=yes ./so_long
-#		 	./so_long map.txt
+#	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all \
+--track-origins=yes ./so_long jkl.lkj
+	valgrind --read-var-info=yes --leak-check=full --show-leak-kinds=all	\
+	--track-origins=yes --verbose --log-file=valgrind-out.txt ./so_long jkl.lkj
 
 norm:
 #	@norminette $(SRCS) so_long.h $(LIBPATH)

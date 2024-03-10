@@ -1,0 +1,374 @@
+==6930== Memcheck, a memory error detector
+==6930== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==6930== Using Valgrind-3.19.0.GIT-lbmacos-6ff08b6e31-20220212 and LibVEX; rerun with -h for copyright info
+==6930== Command: ./so_long jkl.lkj
+==6930== Parent PID: 6929
+==6930== 
+--6930-- 
+--6930-- Valgrind options:
+--6930--    --read-var-info=yes
+--6930--    --leak-check=full
+--6930--    --show-leak-kinds=all
+--6930--    --track-origins=yes
+--6930--    --verbose
+--6930--    --log-file=valgrind-out.txt
+--6930-- Output from sysctl({CTL_KERN,KERN_VERSION}):
+--6930--   Darwin Kernel Version 19.6.0: Tue Jun 21 21:18:39 PDT 2022; root:xnu-6153.141.66~1/RELEASE_X86_64
+--6930-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--6930-- Page sizes: currently 4096, max supported 4096
+--6930-- Valgrind library directory: /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind
+--6930-- ./so_long (rx at 0x100000000, rw at 0x100004000)
+--6930--    reading syms   from primary file (12 118)
+--6930--    dSYM= ./so_long.dSYM/Contents/Resources/DWARF/so_long
+--6930--    reading dwarf3 from dsyms file
+--6930-- /usr/lib/dyld (rx at 0x100010000, rw at 0x1000a3000)
+--6930--    reading syms   from primary file (5 2729)
+--6930-- Scheduler: using generic scheduler lock implementation.
+--6930-- Reading suppressions file: /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp
+==6930== embedded gdbserver: reading from /var/folders/zz/zyxvpxvq6csfxvn_n000ckx40034q9/T//vgdb-pipe-from-vgdb-to-6930-by-oruban-on-???
+==6930== embedded gdbserver: writing to   /var/folders/zz/zyxvpxvq6csfxvn_n000ckx40034q9/T//vgdb-pipe-to-vgdb-from-6930-by-oruban-on-???
+==6930== embedded gdbserver: shared mem   /var/folders/zz/zyxvpxvq6csfxvn_n000ckx40034q9/T//vgdb-pipe-shared-mem-vgdb-6930-by-oruban-on-???
+==6930== 
+==6930== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==6930== don't want to do, unless you know exactly what you're doing,
+==6930== or are doing some strange experiment):
+==6930==   /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/../../bin/vgdb --pid=6930 ...command...
+==6930== 
+==6930== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==6930==   /path/to/gdb ./so_long
+==6930== and then give GDB the following command
+==6930==   target remote | /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/../../bin/vgdb --pid=6930
+==6930== --pid is optional if only one valgrind process is running
+==6930== 
+--6930-- REDIR: 0x100062340 (dyld:strcmp) redirected to 0x25805831e (???)
+--6930-- REDIR: 0x10005c614 (dyld:arc4random) redirected to 0x2580583bc (???)
+--6930-- REDIR: 0x100061720 (dyld:strlen) redirected to 0x2580582ed (???)
+--6930-- REDIR: 0x100062640 (dyld:strcpy) redirected to 0x25805833a (???)
+--6930-- REDIR: 0x10005f7ba (dyld:strcat) redirected to 0x2580582fe (???)
+--6930-- REDIR: 0x10006151a (dyld:strlcat) redirected to 0x258058357 (???)
+--6930-- /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_core-amd64-darwin.so (rx at 0x100116000, rw at 0x10011a000)
+--6930--    reading syms   from primary file (3 53)
+--6930--    dSYM= /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_core-amd64-darwin.so.dSYM/Contents/Resources/DWARF/vgpreload_core-amd64-darwin.so
+--6930-- /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so (rx at 0x100122000, rw at 0x10012a000)
+--6930--    reading syms   from primary file (75 62)
+--6930--    dSYM= /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so.dSYM/Contents/Resources/DWARF/vgpreload_memcheck-amd64-darwin.so
+--6930-- /usr/lib/libSystem.B.dylib (rx at 0x100132000, rw at 0x100134000)
+--6930--    reading syms   from primary file (29 8)
+--6930-- /usr/lib/system/libcache.dylib (rx at 0x10013c000, rw at 0x100142000)
+--6930--    reading syms   from primary file (32 29)
+--6930-- /usr/lib/system/libcommonCrypto.dylib (rx at 0x100149000, rw at 0x100155000)
+--6930--    reading syms   from primary file (241 173)
+--6930-- /usr/lib/system/libcompiler_rt.dylib (rx at 0x100165000, rw at 0x10016d000)
+--6930--    reading syms   from primary file (505 8)
+--6930-- /usr/lib/system/libcopyfile.dylib (rx at 0x10017d000, rw at 0x100187000)
+--6930--    reading syms   from primary file (11 38)
+--6930-- /usr/lib/system/libcorecrypto.dylib (rx at 0x10018f000, rw at 0x100222000)
+--6930--    reading syms   from primary file (586 845)
+--6930-- /usr/lib/system/libdispatch.dylib (rx at 0x100242000, rw at 0x100283000)
+--6930--    reading syms   from primary file (328 1607)
+--6930-- /usr/lib/system/libdyld.dylib (rx at 0x1002c0000, rw at 0x1002f7000)
+--6930--    reading syms   from primary file (119 1467)
+--6930-- /usr/lib/system/libkeymgr.dylib (rx at 0x100320000, rw at 0x100321000)
+--6930--    reading syms   from primary file (11 2)
+--6930-- /usr/lib/system/libmacho.dylib (rx at 0x100330000, rw at 0x100336000)
+--6930--    reading syms   from primary file (105 2)
+--6930-- /usr/lib/system/libquarantine.dylib (rx at 0x10033e000, rw at 0x100341000)
+--6930--    reading syms   from primary file (91 12)
+--6930-- /usr/lib/system/libremovefile.dylib (rx at 0x100349000, rw at 0x10034b000)
+--6930--    reading syms   from primary file (12 8)
+--6930-- /usr/lib/system/libsystem_asl.dylib (rx at 0x100352000, rw at 0x10036a000)
+--6930--    reading syms   from primary file (219 234)
+--6930-- /usr/lib/system/libsystem_blocks.dylib (rx at 0x10037a000, rw at 0x10037b000)
+--6930--    reading syms   from primary file (21 8)
+--6930-- /usr/lib/system/libsystem_c.dylib (rx at 0x100382000, rw at 0x10040a000)
+--6930--    reading syms   from primary file (1346 892)
+--6930-- /usr/lib/system/libsystem_configuration.dylib (rx at 0x10043a000, rw at 0x10043e000)
+--6930--    reading syms   from primary file (36 68)
+--6930-- /usr/lib/system/libsystem_coreservices.dylib (rx at 0x100447000, rw at 0x10044b000)
+--6930--    reading syms   from primary file (14 47)
+--6930-- /usr/lib/system/libsystem_darwin.dylib (rx at 0x100453000, rw at 0x10045c000)
+--6930--    reading syms   from primary file (63 562)
+--6930-- /usr/lib/system/libsystem_dnssd.dylib (rx at 0x10046b000, rw at 0x100473000)
+--6930--    reading syms   from primary file (40 26)
+--6930-- /usr/lib/system/libsystem_featureflags.dylib (rx at 0x10047b000, rw at 0x10047d000)
+--6930--    reading syms   from primary file (1 12)
+--6930-- /usr/lib/system/libsystem_info.dylib (rx at 0x100484000, rw at 0x1004d2000)
+--6930--    reading syms   from primary file (427 715)
+--6930-- /usr/lib/system/libsystem_m.dylib (rx at 0x1004ea000, rw at 0x100532000)
+--6930--    reading syms   from primary file (811 1)
+--6930-- /usr/lib/system/libsystem_malloc.dylib (rx at 0x100543000, rw at 0x10056b000)
+--6930--    reading syms   from primary file (98 470)
+--6930-- /usr/lib/system/libsystem_networkextension.dylib (rx at 0x10057b000, rw at 0x100589000)
+--6930--    reading syms   from primary file (118 242)
+--6930-- /usr/lib/system/libsystem_notify.dylib (rx at 0x100599000, rw at 0x1005a3000)
+--6930--    reading syms   from primary file (23 1)
+--6930-- /usr/lib/system/libsystem_sandbox.dylib (rx at 0x1005ab000, rw at 0x1005b0000)
+--6930--    reading syms   from primary file (112 23)
+--6930-- /usr/lib/system/libsystem_secinit.dylib (rx at 0x1005b9000, rw at 0x1005bc000)
+--6930--    reading syms   from primary file (5 20)
+--6930-- /usr/lib/system/libsystem_kernel.dylib (rx at 0x1005c3000, rw at 0x1005f0000)
+--6930--    reading syms   from primary file (1362 230)
+--6930-- /usr/lib/system/libsystem_platform.dylib (rx at 0x10060f000, rw at 0x100618000)
+--6930--    reading syms   from primary file (168 103)
+--6930-- /usr/lib/system/libsystem_pthread.dylib (rx at 0x100622000, rw at 0x10062d000)
+--6930--    reading syms   from primary file (189 143)
+--6930-- /usr/lib/system/libsystem_symptoms.dylib (rx at 0x10063a000, rw at 0x100642000)
+--6930--    reading syms   from primary file (10 86)
+--6930-- /usr/lib/system/libsystem_trace.dylib (rx at 0x10064a000, rw at 0x100661000)
+--6930--    reading syms   from primary file (131 274)
+--6930-- /usr/lib/system/libunwind.dylib (rx at 0x100672000, rw at 0x100678000)
+--6930--    reading syms   from primary file (102 52)
+--6930-- /usr/lib/system/libxpc.dylib (rx at 0x100681000, rw at 0x1006b7000)
+--6930--    reading syms   from primary file (627 1467)
+--6930-- /usr/lib/libobjc.A.dylib (rx at 0x1006e5000, rw at 0x100719000)
+--6930--    reading syms   from primary file (382 771)
+--6930-- /usr/lib/libc++abi.dylib (rx at 0x10073d000, rw at 0x100753000)
+--6930--    reading syms   from primary file (366 704)
+--6930-- /usr/lib/libc++.1.dylib (rx at 0x100771000, rw at 0x1007c4000)
+--6930--    reading syms   from primary file (2088 1160)
+--6930-- REDIR: 0x1006103a0 (libsystem_platform.dylib:_platform_memcmp) redirected to 0x1001268b5 (_platform_memcmp)
+--6930-- REDIR: 0x10060fc00 (libsystem_platform.dylib:_platform_strncmp) redirected to 0x100126249 (_platform_strncmp)
+--6930-- REDIR: 0x10060f800 (libsystem_platform.dylib:_platform_strcmp) redirected to 0x1001262c3 (_platform_strcmp)
+--6930-- REDIR: 0x100543ce0 (libsystem_malloc.dylib:malloc) redirected to 0x1001244d0 (malloc)
+--6930-- REDIR: 0x100545ec1 (libsystem_malloc.dylib:calloc) redirected to 0x100124ae6 (calloc)
+--6930-- REDIR: 0x100545d67 (libsystem_malloc.dylib:realloc) redirected to 0x100124e64 (realloc)
+--6930-- REDIR: 0x100546087 (libsystem_malloc.dylib:malloc_default_zone) redirected to 0x100125819 (malloc_default_zone)
+--6930-- REDIR: 0x100543d12 (libsystem_malloc.dylib:malloc_zone_malloc) redirected to 0x100124738 (malloc_zone_malloc)
+--6930-- REDIR: 0x100545ef6 (libsystem_malloc.dylib:malloc_zone_calloc) redirected to 0x100124cd2 (malloc_zone_calloc)
+--6930-- REDIR: 0x10054608f (libsystem_malloc.dylib:malloc_zone_from_ptr) redirected to 0x10012585a (malloc_zone_from_ptr)
+--6930-- REDIR: 0x1005449b1 (libsystem_malloc.dylib:free) redirected to 0x1001248ac (free)
+--6930-- REDIR: 0x100610300 (libsystem_platform.dylib:_platform_strchr$VARIANT$Haswell) redirected to 0x100125acd (_platform_strchr$VARIANT$Haswell)
+==6930== Invalid read of size 1
+==6930==    at 0x100002F78: ft_strlen (ft_strlen.c:30)
+==6930==    by 0x1000030F7: ft_strrchr (ft_strrchr.c:40)
+==6930==    by 0x100002ECF: main (so_long.c:24)
+==6930==  Address 0x2 is not stack'd, malloc'd or (recently) free'd
+==6930== 
+==6930== 
+==6930== Process terminating with default action of signal 11 (SIGSEGV)
+==6930==  Access not within mapped region at address 0x2
+==6930==    at 0x100002F78: ft_strlen (ft_strlen.c:30)
+==6930==    by 0x1000030F7: ft_strrchr (ft_strrchr.c:40)
+==6930==    by 0x100002ECF: main (so_long.c:24)
+==6930==  If you believe this happened as a result of a stack
+==6930==  overflow in your program's main thread (unlikely but
+==6930==  possible), you can try to increase the size of the
+==6930==  main thread stack using the --main-stacksize= flag.
+==6930==  The main thread stack size used in this run was 67104768.
+==6930== 
+==6930== HEAP SUMMARY:
+==6930==     in use at exit: 13,888 bytes in 161 blocks
+==6930==   total heap usage: 175 allocs, 14 frees, 18,632 bytes allocated
+==6930== 
+==6930== Searching for pointers to 161 not-freed blocks
+==6930== Checked 67,739,008 bytes
+==6930== 
+==6930== 32 bytes in 1 blocks are definitely lost in loss record 13 of 40
+==6930==    at 0x100124BA0: calloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1006FC5F3: objc::DenseMap<objc_class*, objc_class*, objc::DenseMapValueInfo<objc_class*>, objc::DenseMapInfo<objc_class*>, objc::detail::DenseMapPair<objc_class*, objc_class*> >::grow(unsigned int) (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006FC69F: objc_class::mangledName() (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006E8406: objc_opt::objc_stringhash_t::getIndex(char const*) const (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006F82D0: unmap_image (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100015667: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==6930==    by 0x100015808: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==6930==    by 0x1002C1AD0: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==6930==    by 0x1006E6DAF: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100243F38: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x1002500E7: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x100133790: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930== 
+==6930== 32 bytes in 1 blocks are definitely lost in loss record 14 of 40
+==6930==    at 0x100124BA0: calloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1006FC5F3: objc::DenseMap<objc_class*, objc_class*, objc::DenseMapValueInfo<objc_class*>, objc::DenseMapInfo<objc_class*>, objc::detail::DenseMapPair<objc_class*, objc_class*> >::grow(unsigned int) (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006FC6C6: objc_class::mangledName() (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006FC69F: objc_class::mangledName() (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006E8406: objc_opt::objc_stringhash_t::getIndex(char const*) const (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006F82D0: unmap_image (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100015667: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==6930==    by 0x100015808: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==6930==    by 0x1002C1AD0: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==6930==    by 0x1006E6DAF: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100243F38: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x1002500E7: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==6930== 
+==6930== 64 bytes in 1 blocks are indirectly lost in loss record 19 of 40
+==6930==    at 0x100124545: malloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1003E0FB5: _owned_ptr_alloc (in /usr/lib/system/libsystem_c.dylib)
+==6930==    by 0x1003E1675: setenv (in /usr/lib/system/libsystem_c.dylib)
+==6930==    by 0x100683346: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x1001337A0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000260E5: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x100024233: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000242D3: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==6930==    by 0x100012661: dyld::initializeMainExecutable() (in /usr/lib/dyld)
+==6930== 
+==6930== 80 (16 direct, 64 indirect) bytes in 1 blocks are definitely lost in loss record 20 of 40
+==6930==    at 0x100124545: malloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1003E0FA3: _owned_ptr_alloc (in /usr/lib/system/libsystem_c.dylib)
+==6930==    by 0x1003E1675: setenv (in /usr/lib/system/libsystem_c.dylib)
+==6930==    by 0x100683346: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x1001337A0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000260E5: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x100024233: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000242D3: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==6930==    by 0x100012661: dyld::initializeMainExecutable() (in /usr/lib/dyld)
+==6930== 
+==6930== 128 bytes in 1 blocks are definitely lost in loss record 24 of 40
+==6930==    at 0x100124BA0: calloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1006EB667: objc_msgSend_stret (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100243FEC: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x100248BC5: _dispatch_lane_create_with_target (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x10064B5F5: _libtrace_init (in /usr/lib/system/libsystem_trace.dylib)
+==6930==    by 0x1001337B0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000260E5: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x100024233: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000242D3: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==6930== 
+==6930== 260 bytes in 2 blocks are indirectly lost in loss record 26 of 40
+==6930==    at 0x100124545: malloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x100683C06: _xpc_malloc (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683AE1: _xpc_dictionary_insert (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683E87: _xpc_dyld_image_callback (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x10001499C: dyld::registerBulkLoadCallback(void (*)(unsigned int, mach_header const**, char const**)) (in /usr/lib/dyld)
+==6930==    by 0x100683D1A: _xpc_collect_images (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683297: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x1001337A0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000260E5: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930== 
+==6930== 282 bytes in 6 blocks are indirectly lost in loss record 28 of 40
+==6930==    at 0x100124545: malloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1003D8CE5: strdup (in /usr/lib/system/libsystem_c.dylib)
+==6930==    by 0x10068385D: xpc_string_create (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x10068382F: xpc_dictionary_set_string (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683685: _xpc_collect_environment (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683292: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x1001337A0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000260E5: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x100024233: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930== 
+==6930== 288 bytes in 6 blocks are indirectly lost in loss record 29 of 40
+==6930==    at 0x100124BA0: calloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1006EB667: objc_msgSend_stret (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100243FEC: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x10069FD06: _xpc_string_create (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x10068382F: xpc_dictionary_set_string (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683685: _xpc_collect_environment (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683292: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x1001337A0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000260E5: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930== 
+==6930== 300 bytes in 6 blocks are indirectly lost in loss record 30 of 40
+==6930==    at 0x100124545: malloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x100683C06: _xpc_malloc (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683AE1: _xpc_dictionary_insert (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683840: xpc_dictionary_set_string (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683685: _xpc_collect_environment (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683292: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x1001337A0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000260E5: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x100024233: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930== 
+==6930== 356 (96 direct, 260 indirect) bytes in 1 blocks are definitely lost in loss record 31 of 40
+==6930==    at 0x100124BA0: calloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1006EB667: objc_msgSend_stret (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100243FEC: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x1006837D7: xpc_dictionary_create (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683E02: _xpc_dyld_image_callback (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x10001499C: dyld::registerBulkLoadCallback(void (*)(unsigned int, mach_header const**, char const**)) (in /usr/lib/dyld)
+==6930==    by 0x100683D1A: _xpc_collect_images (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683297: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x1001337A0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930== 
+==6930== 896 bytes in 28 blocks are definitely lost in loss record 34 of 40
+==6930==    at 0x100124BA0: calloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1006FC5F3: objc::DenseMap<objc_class*, objc_class*, objc::DenseMapValueInfo<objc_class*>, objc::DenseMapInfo<objc_class*>, objc::detail::DenseMapPair<objc_class*, objc_class*> >::grow(unsigned int) (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006E8406: objc_opt::objc_stringhash_t::getIndex(char const*) const (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006F82D0: unmap_image (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100015667: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==6930==    by 0x100015808: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==6930==    by 0x1002C1AD0: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==6930==    by 0x1006E6DAF: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100243F38: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x1002500E7: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x100133790: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930== 
+==6930== 896 bytes in 28 blocks are definitely lost in loss record 35 of 40
+==6930==    at 0x100124BA0: calloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1006FC5F3: objc::DenseMap<objc_class*, objc_class*, objc::DenseMapValueInfo<objc_class*>, objc::DenseMapInfo<objc_class*>, objc::detail::DenseMapPair<objc_class*, objc_class*> >::grow(unsigned int) (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006FC6C6: objc_class::mangledName() (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006E8406: objc_opt::objc_stringhash_t::getIndex(char const*) const (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x1006F82D0: unmap_image (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100015667: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==6930==    by 0x100015808: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==6930==    by 0x1002C1AD0: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==6930==    by 0x1006E6DAF: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100243F38: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x1002500E7: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x100133790: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930== 
+==6930== 966 (96 direct, 870 indirect) bytes in 1 blocks are definitely lost in loss record 36 of 40
+==6930==    at 0x100124BA0: calloc (in /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6930==    by 0x1006EB667: objc_msgSend_stret (in /usr/lib/libobjc.A.dylib)
+==6930==    by 0x100243FEC: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==6930==    by 0x1006837D7: xpc_dictionary_create (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683659: _xpc_collect_environment (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x100683292: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==6930==    by 0x1001337A0: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==6930==    by 0x10002B352: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002B75D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==6930==    by 0x10002617A: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x1000260E5: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930==    by 0x100024233: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==6930== 
+==6930== LEAK SUMMARY:
+==6930==    definitely lost: 2,192 bytes in 62 blocks
+==6930==    indirectly lost: 1,194 bytes in 21 blocks
+==6930==      possibly lost: 0 bytes in 0 blocks
+==6930==    still reachable: 0 bytes in 0 blocks
+==6930==         suppressed: 10,502 bytes in 78 blocks
+==6930== 
+==6930== ERROR SUMMARY: 9 errors from 9 contexts (suppressed: 7 from 7)
+==6930== 
+==6930== 1 errors in context 1 of 9:
+==6930== Invalid read of size 1
+==6930==    at 0x100002F78: ft_strlen (ft_strlen.c:30)
+==6930==    by 0x1000030F7: ft_strrchr (ft_strrchr.c:40)
+==6930==    by 0x100002ECF: main (so_long.c:24)
+==6930==  Address 0x2 is not stack'd, malloc'd or (recently) free'd
+==6930== 
+--6930-- 
+--6930-- used_suppression:      2 OSX1015:dyld-4 /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp:751 suppressed: 4,128 bytes in 2 blocks
+--6930-- used_suppression:      1 OSX1015:Leak02-objc /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp:812 suppressed: 2,048 bytes in 1 blocks
+--6930-- used_suppression:      5 OSX1015:dyld-8 /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp:791 suppressed: 1,726 bytes in 5 blocks
+--6930-- used_suppression:     18 OSX1015:dyld-7 /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp:781 suppressed: 2,336 bytes in 67 blocks
+--6930-- used_suppression:      1 OSX1015:dyld-5 /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp:761 suppressed: 264 bytes in 3 blocks
+--6930-- used_suppression:      1 OSX1015:dyld-1 /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp:726
+--6930-- used_suppression:      2 OSX1015:dyld-3 /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp:742
+--6930-- used_suppression:      1 OSX1015:dyld-2 /usr/local/Cellar/valgrind/HEAD-6ff08b6/libexec/valgrind/default.supp:733
+==6930== 
+==6930== ERROR SUMMARY: 9 errors from 9 contexts (suppressed: 7 from 7)
