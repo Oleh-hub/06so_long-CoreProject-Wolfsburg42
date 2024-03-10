@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/10 16:24:14 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/10 17:38:12 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@ static t_frame *map_check(char *av)
 	char	*ext;
 	
 	ext = ft_strrchr(av, '.');
-	ft_printf("'%s'\n", ext);
-	ft_printf("'%s'\n", av);
-	// ft_printf(""%s"\n", *av);
-	// ft_printf("'%s'\n", av[0]);
-	// ft_printf("'%s'\n", av[1]);
+	if (!ext || ft_strlen(ext) != 4 || ft_strncmp(ext, ".ber", 4))
+	{
+		write(2, "Error: not a valid map file name\n", 28);
+		//
+		{
+		ft_printf("'%s'\n", av);
+		}
+		exit(0);
+	}
+	
 	ft_printf("\n");
 	
 	return(game);
@@ -42,10 +47,10 @@ int main(int ac, char **av)
 		return (0);
 	}
 	game = map_check(av[1]);
-	ft_printf("'%s'\n", *av);
-	ft_printf("'%s'\n", *(av + 1));
-	ft_printf("'%s'\n", av[0]);
-	ft_printf("'%s'\n", av[1]);
+// {	ft_printf("'%s'\n", *av);
+// 	ft_printf("'%s'\n", *(av + 1));
+// 	ft_printf("'%s'\n", av[0]);
+// 	ft_printf("'%s'\n", av[1]);}
 	
 	return (0);
 }

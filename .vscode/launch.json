@@ -18,7 +18,7 @@
 		// "args": ["1", "+4", "-3", "-2147483648", "2147483647"],
 		// "args": [""],	
 		// "args": ["maps/rectangular.ber"],
-		"args": ["jkl"],	
+		"args": ["jkl..lkjs"],	
 		"cwd": "${workspaceFolder}",
 		"stopAtEntry": false,
 		"externalConsole": false,
