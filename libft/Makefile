@@ -37,7 +37,9 @@ SRCS		:=	ft_isalpha.c			\
 				ft_putnbr_fd.c 			\
 				ft_atol.c				\
 				$(DIR_PRINTF)ft_printf.c\
-				$(DIR_PRINTF)upxx_out.c	
+				$(DIR_PRINTF)upxx_out.c	\
+				gnl/get_next_line.c		\
+				gnl/get_next_line_utils.c
 				
 SRCS_BONUS	:=	ft_lstnew.c				\
 				ft_lstadd_front.c		\

@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/10 13:32:50 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/10 18:34:57 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // # include <mlx.h>
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
+# include "libft/gnl/get_next_line.h"
 # include "minilibx_macos/mlx.h"
 
 typedef struct s_frame
