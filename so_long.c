@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/10 20:50:17 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/11 09:33:38 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,22 @@
 
 #include "so_long.h"
 
-static t_frame *map_check(char *av)
+static void	init_frame(t_frame *game)
 {
-	t_frame *game = NULL;
+	game->rows = 0;
+	game->cols = 0;
+	game->herbs = 0;
+	game->gate = 0;
+	game->steps = 0;
+	game->collected = 0;
+}
+
+static t_frame	*map_check(char *av)
+{
+	t_frame	*game = NULL;
 	char	*ext;
 	int		fd;
-	
+
 	ext = ft_strrchr(av, '.');
 	if (!ext || ft_strlen(ext) != 4 || ft_strncmp(ext, ".ber", 4))
 	{
@@ -32,20 +42,22 @@ static t_frame *map_check(char *av)
 		exit(1);
 	}
 	fd = open(av, O_RDONLY);
-	if (fd == -1 )
+	if (fd == -1)
 	{
-		write(2, "Error: map file can not be open\n", 32);
+		write(2, "Error: map file '", 17);
+		write(2, av, ft_strlen(av));
+		write(2, "' cannot be open\n", 17);
 		exit(1);
 	}
-	
+	init_frame(game);
 	close(fd);
-	return(game);
+	return (game);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_frame	*game;
-	
+
 	if (ac != 2)
 	{
 		write(2, "Error: Wrong number of arguments!\n", 34);
@@ -56,6 +68,5 @@ int main(int ac, char **av)
 // 	ft_printf("'%s'\n", *(av + 1));
 // 	ft_printf("'%s'\n", av[0]);
 // 	ft_printf("'%s'\n", av[1]);}
-	
 	return (0);
 }

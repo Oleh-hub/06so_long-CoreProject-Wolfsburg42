@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/10 20:42:39 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/11 09:27:51 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 
 typedef struct s_frame
 {
-    
-}       t_frame;
+	int		rows;
+	int		cols;
+	int		herbs;
+	int		gate;
+	int		steps;
+	int		collected;
+}			t_frame;
 #endif  /* SO_LONG_H */
