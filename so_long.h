@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/12 14:43:40 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/12 19:06:26 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "libft/gnl/get_next_line.h"
 # include "minilibx_macos/mlx.h"
 # include <fcntl.h>                     // open()
-// # include <stdbool.h>
+# include <stdbool.h>
 
 typedef struct s_frame
 {

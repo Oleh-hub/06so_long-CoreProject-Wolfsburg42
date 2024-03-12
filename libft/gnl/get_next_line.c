@@ -6,9 +6,21 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:52:48 by oruban            #+#    #+#             */
-/*   Updated: 2024/01/03 13:43:32 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/12 20:52:10 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/* Function name get_next_line
+Prototype char *get_next_line(int fd);
+Turn in files get_next_line.c, get_next_line_utils.c,
+get_next_line.h
+Parameters fd: The file descriptor to read from
+Return value Read line: correct behavior
+NULL: there is nothing else to read, or an error
+occurred
+External functs. read, malloc, free
+Description Write a function that returns a line read from a
+file descriptor */
 
 #include "get_next_line.h"
 
@@ -141,44 +153,46 @@ char	*get_next_line(int fd)
 
 // #include "get_next_line.h"
 // // #include "get_next_line_bonus.h"
-// #include <fcntl.h>
+/* #include <fcntl.h>
 
-// int	main(void)
-// {
-// 	char	*line;
-// 	int		i;
-// 	int		fd1;
-// 	int		fd2;
-// 	int		fd3;
+int	main(void)
+{
+	char	*line;
+	int		i;
+	int		fd1;
+	int		fd2;
+	int		fd3;
 
-// 	fd1 = open("test.txt", O_RDONLY);
-// 	// fd1 = open("test1.txt", O_RDONLY);
-// 	// fd1 = open("only_nl.txt", O_RDONLY);
-// 	// fd1 = open("1char.txt", O_RDONLY);
-// 	// fd1 = open("one_line_no_nl.txt", O_RDONLY);
-// 	// fd1 = open("empty.txt", O_RDONLY);
-// 	fd2 = open("lines_around_10.txt", O_RDONLY);
-// 	fd3 = open("read_error.txt", O_RDONLY);
-// 	i = 1;
-// 	while (i < 5)
-// 	{
-// 		// if (i > 0)
-// 		// 	sleep(1);
-// 		line = get_next_line(fd1);
-// 		printf("line [%02d]: '%s'\n", i, line);
-// 		free(line);
-// 		// line = get_next_line(fd2);
-// 		// printf("line [%02d]: %s\n", i, line);
-// 		// free(line);
-// 		// line = get_next_line(fd3);
-// 		// printf("line [%02d]: %s\n", i, line);
-// 		// free(line);
-// 		i++;
-// 	}
-// 	// printf("\nThe programm is running OPEN_MAX = %i\n", OPEN_MAX);
-// 	// sleep(100);
-// 	close(fd1);
-// 	close(fd2);
-// 	close(fd3);
-// 	return (0);
-// }
+	fd1 = open("rectangular.ber", O_RDONLY);
+	// fd1 = open("test.txt", O_RDONLY);
+	// fd1 = open("test1.txt", O_RDONLY);
+	// fd1 = open("only_nl.txt", O_RDONLY);
+	// fd1 = open("1char.txt", O_RDONLY);
+	// fd1 = open("one_line_no_nl.txt", O_RDONLY);
+	// fd1 = open("empty.txt", O_RDONLY);
+	// fd2 = open("lines_around_10.txt", O_RDONLY);
+	// fd3 = open("read_error.txt", O_RDONLY);
+	i = 1;
+	while (i < 5)
+	{
+		// if (i > 0)
+		// 	sleep(1);
+		line = get_next_line(fd1);
+		printf("line [%02d]: %s", i, line);
+		free(line);
+		// line = get_next_line(fd2);
+		// printf("line [%02d]: %s\n", i, line);
+		// free(line);
+		// line = get_next_line(fd3);
+		// printf("line [%02d]: %s\n", i, line);
+		// free(line);
+		i++;
+	}
+	printf("\n");
+	// printf("\nThe programm is running OPEN_MAX = %i\n", OPEN_MAX);
+	// sleep(100);
+	close(fd1);
+	// close(fd2);
+	// close(fd3);
+	return (0);
+} */

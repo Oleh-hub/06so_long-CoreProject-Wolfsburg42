@@ -6,11 +6,13 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/12 14:42:20 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/12 20:09:37 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // minilibx_opengl.tgz is unpacked into .\minilibx_macos
+// scholarship timetable: https://42wolfsburgberlin.notion.site/Timeline-
+// November-2023-Kick-off-718cb5c4a4884321b9a954ed04b01ba1
 // https://github.com/jotavare/42-resources?tab=readme-ov-file#02-so_long
 // https://reactive.so/post/42-a-comprehensive-guide-to-so_long
 // https://www.youtube.com/watch?v=D1DeE-Qit3M&t=17s
@@ -19,6 +21,17 @@
 // Nm -r ./so_long
 
 #include "so_long.h"
+
+static bool map_valid(int fd, t_frame *game)
+{
+	char *line;
+	(void) game;
+	
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	
+	return (true);
+}
 
 static void	init_frame(t_frame *game)
 {
@@ -55,6 +68,11 @@ static t_frame	*map_check(char *av)
 		error_exit("Error: Memory allocation failed\n");
 	}
 	init_frame(game);
+	if (!map_valid(fd, game))
+		ft_printf("map %s is not valid\n", av);
+	else
+		ft_printf("int fd = %i, t_frame *game = %p\n", fd, game);
+
 	close(fd);
 	return (game);
 }
