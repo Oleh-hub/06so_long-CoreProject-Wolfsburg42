@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/12 20:09:37 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/12 21:21:47 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool map_valid(int fd, t_frame *game)
 	
 	line = get_next_line(fd);
 	printf("%s\n", line);
-	
+	free(line);
 	return (true);
 }
 
