@@ -40,11 +40,12 @@ $(OBJS_DIR)%.o : %.c so_long.h
 
 valgrind:
 #	valgrind --leak-check=full --show-leak-kinds=all \
-			--track-origins=yes ./so_long
-#	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all \
---track-origins=yes ./so_long jkl.lkj
-	valgrind --read-var-info=yes --leak-check=full --show-leak-kinds=all	\
-	--track-origins=yes --verbose --log-file=valgrind-out.txt ./so_long jkl.lkj
+			--track-origins=yes ./so_long maps/rectangular.ber
+	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all \
+--track-origins=yes ./so_long maps/rectangular.ber
+#	valgrind --read-var-info=yes --leak-check=full --show-leak-kinds=all \
+	--track-origins=yes --verbose --log-file=valgrind-out.txt \
+	./so_long maps/rectangular.ber
 
 norm:
 #	@norminette $(SRCS) so_long.h $(LIBPATH)
