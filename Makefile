@@ -2,7 +2,8 @@ CC				:= cc
 CFLAGS			:= -Wall -Wextra -Werror -g -O3
 
 NAME			:= so_long
-SRCS			:= so_long.c
+SRCS			:=	so_long.c	\
+					99utils.c
 OBJS			:= $(SRCS:.c=.o)
 OBJS_DIR		:= objs/
 OBJS_PREFIXED	:= $(addprefix $(OBJS_DIR), $(OBJS))

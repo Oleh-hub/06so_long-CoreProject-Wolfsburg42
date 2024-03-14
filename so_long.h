@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/12 19:06:26 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/14 14:51:43 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include "libft/gnl/get_next_line.h"
 # include "minilibx_macos/mlx.h"
 # include <fcntl.h>                     // open()
-# include <stdbool.h>
+// # include <stdbool.h>
 
 typedef struct s_frame
 {
+	char	**map;
 	int		rows;
 	int		cols;
 	int		collectibles;
@@ -28,4 +29,6 @@ typedef struct s_frame
 	int		steps;
 	int		collected;
 }			t_frame;
+
+void	error_exit(const char *s, int fd, char *str);
 #endif  /* SO_LONG_H */

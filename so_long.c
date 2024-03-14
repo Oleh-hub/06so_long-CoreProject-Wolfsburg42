@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/12 21:21:47 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/14 17:15:22 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,48 @@
 
 #include "so_long.h"
 
-static bool map_valid(int fd, t_frame *game)
+static int	iswall(char *s, char flag, int fd)
 {
-	char *line;
-	(void) game;
-	
+	int	i;
+	int	map_len;
+
+	if (flag == 'l')
+		map_len = ft_strlen(s);
+	else
+		map_len = ft_strlen(s) - 1;
+	i = 0;
+	while (i < map_len)
+	{
+		if (s[i] != '1')
+		{
+			if (flag == 'l')
+				ft_printf("Here should be the extra mem leaks lequedation\n");
+			error_exit("Error: map has 'holes'|invis chars like \\r\n", fd, s);
+		}
+		i++;
+	}
+	if (flag != 'l' && s[i] != '\n')
+		error_exit("Error: map has invis char at the end\\r\n", fd, s);
+	if (flag == 'l')
+		i--;
+	return (i);
+}
+
+/* validates the entire content of map,
+sets value to game->cols and game->rows
+PARAMETERS 
+int		fd - map file discriptor,
+t_frame	*game - pointer at the map structure, game->rows 2 b filled 
+RETURNs
+the number of map rows if validation passes or 0 if not */
+static int	map_valid(int fd, t_frame *game)
+{
+	char	*line;
+
 	line = get_next_line(fd);
-	printf("%s\n", line);
+	game->cols = iswall(line, ' ', fd);
 	free(line);
-	return (true);
+	return (game->rows);
 }
 
 static void	init_frame(t_frame *game)
@@ -43,12 +76,6 @@ static void	init_frame(t_frame *game)
 	game->collected = 0;
 }
 
-static void	error_exit(const char *s)
-{
-	write (2, s, ft_strlen(s));
-	exit (1);
-}
-
 static t_frame	*map_check(char *av)
 {
 	t_frame	*game;
@@ -57,22 +84,18 @@ static t_frame	*map_check(char *av)
 
 	ext = ft_strrchr(av, '.');
 	if (!ext || ft_strlen(ext) != 4 || ft_strncmp(ext, ".ber", 4))
-		error_exit("Error: name of the map should be of '*.ber' format\n");
+		error_exit("Error: map name should be of '*.ber' format\n", 0, NULL);
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		error_exit("Error: map file cannot be open\n");
+		error_exit("Error: map file cannot be open\n", 0, NULL);
 	game = (t_frame *)malloc(sizeof(t_frame));
 	if (!game)
-	{
-		close(fd);
-		error_exit("Error: Memory allocation failed\n");
-	}
+		error_exit("Error: Memory allocation failed\n", fd, NULL);
 	init_frame(game);
 	if (!map_valid(fd, game))
 		ft_printf("map %s is not valid\n", av);
 	else
 		ft_printf("int fd = %i, t_frame *game = %p\n", fd, game);
-
 	close(fd);
 	return (game);
 }

@@ -13,6 +13,7 @@
 				// "*.c",
 				// "${file}",
 				"so_long.c",
+				"99utils.c",
 				"-o",
 				"${workspaceFolder}/${fileBasenameNoExtension}",
 				"-L./libft",
