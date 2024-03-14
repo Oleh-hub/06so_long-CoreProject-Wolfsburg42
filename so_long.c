@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/14 17:15:22 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/14 19:19:32 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,20 @@ the number of map rows if validation passes or 0 if not */
 static int	map_valid(int fd, t_frame *game)
 {
 	char	*line;
+	char	*next_l;
 
 	line = get_next_line(fd);
 	game->cols = iswall(line, ' ', fd);
+	line = get_next_line(fd);
+	next_l = get_next_line(fd);
+	while (next_l)
+	{
+		line = next_l;
+		//
+		next_l = get_next_line(fd);
+	}
+	if (game->cols != iswall(line, 'l', fd))
+		error_exit("Error: the under wall of the map != upper one \n", fd, line);
 	free(line);
 	return (game->rows);
 }
