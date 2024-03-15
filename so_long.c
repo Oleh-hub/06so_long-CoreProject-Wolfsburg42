@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/14 19:19:32 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/15 11:29:21 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,29 @@
 // Nm -r ./so_long
 
 #include "so_long.h"
+
+/* checking if map has only 1 P, E, > 0 C, 1 at start and begining and is 
+== cols */
+void	ismiddle(char *line, char *next_l, int cols, int fd)
+{
+	// static int	p = 0;
+	// static int	e = 0;
+	// static int	c = 0;
+
+	while (line[cols] && (line[cols] == '0' || line[cols] == 'P'
+		|| line[cols] == 'E' || line[cols] == 'C' || line[cols] == '1'))
+	{
+		// if ()
+		cols--;
+	}
+	if (cols >= 0)
+	{
+		if (!next_l)
+			free(next_l);
+		error_exit("Error: the map should contain only 0PEC1 chars", fd, line);
+		
+	}
+}
 
 static int	iswall(char *s, char flag, int fd)
 {
@@ -43,9 +66,7 @@ static int	iswall(char *s, char flag, int fd)
 		i++;
 	}
 	if (flag != 'l' && s[i] != '\n')
-		error_exit("Error: map has invis char at the end\\r\n", fd, s);
-	if (flag == 'l')
-		i--;
+		error_exit("Error: map has wrong format(invis.chars, 1 line)\n", fd, s);
 	return (i);
 }
 
@@ -68,11 +89,11 @@ static int	map_valid(int fd, t_frame *game)
 	while (next_l)
 	{
 		line = next_l;
-		//
+		ismiddle(line, next_l, game->cols, fd);
 		next_l = get_next_line(fd);
 	}
 	if (game->cols != iswall(line, 'l', fd))
-		error_exit("Error: the under wall of the map != upper one \n", fd, line);
+		error_exit("Error: the under wall of the map != upper one\n", fd, line);
 	free(line);
 	return (game->rows);
 }
