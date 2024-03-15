@@ -1,0 +1,32 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
+	// roi - the sampls of launch.json and tasks.json are here:
+	// https://code.visualstudio.com/docs/cpp/config-clang-mac 
+"version": "0.2.0",
+"configurations": [
+	{
+		"name": "C/C++: clang++ build and debug active file",
+		"type": "cppdbg",
+		"request": "launch",
+		"MIMode": "lldb",
+		"program": "${workspaceFolder}/${fileBasenameNoExtension}",
+		// "args": ["arg1", "arg2"],
+		// "args": ["1 +4 -3 -2147483648 2147483647"],
+		// "args": ["1", "+4", "-3", "-2147483648", "2147483647"],
+		// "args": [""],	
+		// "args": ["jkl..lkjs"],	
+		// "args": ["sadfa.jkl"],	
+		// "args": ["maps/rectangular.ber"],
+		// "args": ["maps/1l.ber"],
+		"args": ["maps/rmap_small.ber"],
+		// "args": ["maps/2lb.ber"],
+		"cwd": "${workspaceFolder}",
+		"stopAtEntry": false,
+		"externalConsole": false,
+		"preLaunchTask": "C/C++: clang build active file"
+	}
+]
+}
