@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/15 14:06:13 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:31:09 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,36 @@ void	ismiddle(char *line, char *next_l, int cols, int fd)
 {
 	static int	p = 0;
 	static int	e = 0;
-	// static int	c = 0;
-	char		*err_msg = "Error: the map should be surounded by '1' and has one 'P', 'E'\n";
+	static int	c = 0;
+	static int	o = 0;
 
 	while (line[cols] && (line[cols] == '0' || line[cols] == 'P'
-		|| line[cols] == 'E' || line[cols] == 'C' || line[cols] == '1'))
+			|| line[cols] == 'E' || line[cols] == 'C' || line[cols] == '1'))
 	{
 		if (line[0] != '1' || line[cols - 1] != '1')
-			error_exit(err_msg, fd, line, next_l);
-			
+			error_exit("Error: suround map by 1\n", fd, line, next_l);
 		if (line[cols] == 'P')
 		{
-			p++;
 			if (p > 1)
-				error_exit(err_msg, fd, line, next_l);
-			e++;
-			if (e > 1)
-				error_exit(err_msg, fd, line, next_l);
-			
+				error_exit("Error: let map have 1 P\n", fd, line, next_l);
+			p++;
 		}
+		if (line[cols] == 'E')
+		{
+			if (e > 1)
+				error_exit("Error: let map have 1 E\n", fd, line, next_l);
+			e++;
+		}
+		if (line[cols] == 'C')
+			c++;
+		if (line[cols] == '0')
+			o++;
 		cols--;
 	}
 	if (cols >= 0)
-		error_exit("Error: the map should contain only 0PEC1 chars", fd, line, next_l);
+		error_exit("Error: let map has 1 0PEC1 chars\n", fd, line, next_l);
+	if (!c || !o)
+		error_exit("Error: map must have min 1 C and 0\n", fd, line, next_l);
 }
 
 static int	iswall(char *s, char flag, int fd)
@@ -69,12 +76,12 @@ static int	iswall(char *s, char flag, int fd)
 		{
 			if (flag == 'l')
 				ft_printf("Here should be the extra mem leaks lequedation\n");
-			error_exit("Error: map has 'holes'|invis chars like \\r\n", fd, s, NULL);
+			error_exit("Error: map has non 1 chars\n", fd, s, NULL);
 		}
 		i++;
 	}
 	if (flag != 'l' && s[i] != '\n')
-		error_exit("Error: map has wrong format(invis.chars, 1 line)\n", fd, s, NULL);
+		error_exit("Error: wall has not allowed chars\n", fd, s, NULL);
 	return (i);
 }
 
@@ -101,7 +108,7 @@ static int	map_valid(int fd, t_frame *game)
 		next_l = get_next_line(fd);
 	}
 	if (game->cols != iswall(line, 'l', fd))
-		error_exit("Error: the under wall of the map != upper one\n", fd, line, NULL);
+		error_exit("Error: 1st wall line != last one\n", fd, line, NULL);
 	free(line);
 	return (game->rows);
 }
@@ -124,7 +131,7 @@ static t_frame	*map_check(char *av)
 
 	ext = ft_strrchr(av, '.');
 	if (!ext || ft_strlen(ext) != 4 || ft_strncmp(ext, ".ber", 4))
-		error_exit("Error: map name should be of '*.ber' format\n", 0, NULL, NULL);
+		error_exit("Error: map name should be '*.ber' format\n", 0, NULL, NULL);
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		error_exit("Error: map file cannot be open\n", 0, NULL, NULL);
