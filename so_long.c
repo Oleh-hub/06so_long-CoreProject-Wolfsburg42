@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/15 11:29:21 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:06:13 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,31 @@
 == cols */
 void	ismiddle(char *line, char *next_l, int cols, int fd)
 {
-	// static int	p = 0;
-	// static int	e = 0;
+	static int	p = 0;
+	static int	e = 0;
 	// static int	c = 0;
+	char		*err_msg = "Error: the map should be surounded by '1' and has one 'P', 'E'\n";
 
 	while (line[cols] && (line[cols] == '0' || line[cols] == 'P'
 		|| line[cols] == 'E' || line[cols] == 'C' || line[cols] == '1'))
 	{
-		// if ()
+		if (line[0] != '1' || line[cols - 1] != '1')
+			error_exit(err_msg, fd, line, next_l);
+			
+		if (line[cols] == 'P')
+		{
+			p++;
+			if (p > 1)
+				error_exit(err_msg, fd, line, next_l);
+			e++;
+			if (e > 1)
+				error_exit(err_msg, fd, line, next_l);
+			
+		}
 		cols--;
 	}
 	if (cols >= 0)
-	{
-		if (!next_l)
-			free(next_l);
-		error_exit("Error: the map should contain only 0PEC1 chars", fd, line);
-		
-	}
+		error_exit("Error: the map should contain only 0PEC1 chars", fd, line, next_l);
 }
 
 static int	iswall(char *s, char flag, int fd)
@@ -61,12 +69,12 @@ static int	iswall(char *s, char flag, int fd)
 		{
 			if (flag == 'l')
 				ft_printf("Here should be the extra mem leaks lequedation\n");
-			error_exit("Error: map has 'holes'|invis chars like \\r\n", fd, s);
+			error_exit("Error: map has 'holes'|invis chars like \\r\n", fd, s, NULL);
 		}
 		i++;
 	}
 	if (flag != 'l' && s[i] != '\n')
-		error_exit("Error: map has wrong format(invis.chars, 1 line)\n", fd, s);
+		error_exit("Error: map has wrong format(invis.chars, 1 line)\n", fd, s, NULL);
 	return (i);
 }
 
@@ -93,7 +101,7 @@ static int	map_valid(int fd, t_frame *game)
 		next_l = get_next_line(fd);
 	}
 	if (game->cols != iswall(line, 'l', fd))
-		error_exit("Error: the under wall of the map != upper one\n", fd, line);
+		error_exit("Error: the under wall of the map != upper one\n", fd, line, NULL);
 	free(line);
 	return (game->rows);
 }
@@ -116,13 +124,13 @@ static t_frame	*map_check(char *av)
 
 	ext = ft_strrchr(av, '.');
 	if (!ext || ft_strlen(ext) != 4 || ft_strncmp(ext, ".ber", 4))
-		error_exit("Error: map name should be of '*.ber' format\n", 0, NULL);
+		error_exit("Error: map name should be of '*.ber' format\n", 0, NULL, NULL);
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
-		error_exit("Error: map file cannot be open\n", 0, NULL);
+		error_exit("Error: map file cannot be open\n", 0, NULL, NULL);
 	game = (t_frame *)malloc(sizeof(t_frame));
 	if (!game)
-		error_exit("Error: Memory allocation failed\n", fd, NULL);
+		error_exit("Error: Memory allocation failed\n", fd, NULL, NULL);
 	init_frame(game);
 	if (!map_valid(fd, game))
 		ft_printf("map %s is not valid\n", av);

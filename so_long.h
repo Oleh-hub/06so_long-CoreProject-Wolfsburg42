@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/14 14:51:43 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/15 13:36:00 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ typedef struct s_frame
 	int		collected;
 }			t_frame;
 
-void	error_exit(const char *s, int fd, char *str);
+void	error_exit(const char *s, int fd, char *line, char *line1);
 #endif  /* SO_LONG_H */
