@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/15 15:31:09 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/15 17:19:18 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 #include "so_long.h"
 
-/* checking if map has only 1 P, E, > 0 C, 1 at start and begining and is 
-== cols */
+/* checking if map has only 1 'P' and 'E', > 0 'C' and '0', '1' at start
+ and begining and is == cols */
 void	ismiddle(char *line, char *next_l, int cols, int fd)
 {
 	static int	p = 0;
@@ -31,21 +31,22 @@ void	ismiddle(char *line, char *next_l, int cols, int fd)
 	static int	c = 0;
 	static int	o = 0;
 
+	if (line[0] != '1' || line[cols - 1] != '1')
+		error_exit("Error: surround map by '1'\n", fd, line, next_l);
+	cols--;
 	while (line[cols] && (line[cols] == '0' || line[cols] == 'P'
 			|| line[cols] == 'E' || line[cols] == 'C' || line[cols] == '1'))
 	{
-		if (line[0] != '1' || line[cols - 1] != '1')
-			error_exit("Error: suround map by 1\n", fd, line, next_l);
 		if (line[cols] == 'P')
 		{
 			if (p > 1)
-				error_exit("Error: let map have 1 P\n", fd, line, next_l);
+				error_exit("Error: let map have 1 'P'\n", fd, line, next_l);
 			p++;
 		}
 		if (line[cols] == 'E')
 		{
 			if (e > 1)
-				error_exit("Error: let map have 1 E\n", fd, line, next_l);
+				error_exit("Error: let map have 1 'E'\n", fd, line, next_l);
 			e++;
 		}
 		if (line[cols] == 'C')
@@ -55,9 +56,9 @@ void	ismiddle(char *line, char *next_l, int cols, int fd)
 		cols--;
 	}
 	if (cols >= 0)
-		error_exit("Error: let map has 1 0PEC1 chars\n", fd, line, next_l);
+		error_exit("Error: let map has 1 '0PEC1' chars\n", fd, line, next_l);
 	if (!c || !o)
-		error_exit("Error: map must have min 1 C and 0\n", fd, line, next_l);
+		error_exit("Error: map must have min 1 'C' & '0'\n", fd, line, next_l);
 }
 
 static int	iswall(char *s, char flag, int fd)
@@ -99,12 +100,13 @@ static int	map_valid(int fd, t_frame *game)
 
 	line = get_next_line(fd);
 	game->cols = iswall(line, ' ', fd);
+	free(line);
 	line = get_next_line(fd);
 	next_l = get_next_line(fd);
 	while (next_l)
 	{
-		line = next_l;
 		ismiddle(line, next_l, game->cols, fd);
+		line = next_l;
 		next_l = get_next_line(fd);
 	}
 	if (game->cols != iswall(line, 'l', fd))
@@ -140,7 +142,7 @@ static t_frame	*map_check(char *av)
 		error_exit("Error: Memory allocation failed\n", fd, NULL, NULL);
 	init_frame(game);
 	if (!map_valid(fd, game))
-		ft_printf("map %s is not valid\n", av);
+		ft_printf("map %s is not valid :)\n", av);
 	else
 		ft_printf("int fd = %i, t_frame *game = %p\n", fd, game);
 	close(fd);
