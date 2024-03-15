@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/15 17:19:18 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/15 17:44:33 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ static int	map_valid(int fd, t_frame *game)
 	while (next_l)
 	{
 		ismiddle(line, next_l, game->cols, fd);
+		free(line);
 		line = next_l;
 		next_l = get_next_line(fd);
 	}
