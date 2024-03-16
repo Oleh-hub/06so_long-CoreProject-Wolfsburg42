@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/15 18:31:07 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/16 20:05:09 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_peco
 	int		e;
 	int		c;
 	int		o;
+	int		l;
 }				t_peco;
 
 void	error_exit(const char *s, int fd, char *line, char *line1);

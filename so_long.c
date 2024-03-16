@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/15 20:50:48 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/16 20:37:31 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ void	peco_chr_chck(t_peco *peco, t_func_pars chr_chck)
 		peco->c++;
 	if (chr_chck.line[chr_chck.cols] == '0')
 		peco->o++;
+	if (chr_chck.line[chr_chck.cols] == '1')
+		peco->l++;
 }
 
 /* checking if map has only 1 'P' and 'E', > 0 'C' and '0', '1' at start
  and begining and is == cols */
-void	ismiddle(char *line, char *next_l, int cols, int fd)
+t_peco	*ismiddle(char *line, char *next_l, int cols, int fd)
 {
-	static t_peco	peco = {0, 0, 0, 0};
+	static t_peco	peco = {0, 0, 0, 0, 0};
 	t_func_pars		chr_chck;
 
 	chr_chck.line = line;
@@ -66,9 +68,10 @@ void	ismiddle(char *line, char *next_l, int cols, int fd)
 		chr_chck.cols--;
 	}
 	if (chr_chck.cols >= 0)
-		error_exit("Error: let map has 1 '0PEC1' chars\n", fd, line, next_l);
-	if (!peco.c || !peco.o)
-		error_exit("Error: map must have min 1 'C' & '0'\n", fd, line, next_l);
+		error_exit("Error: map must be only '0PEC1' chars\n", fd, line, next_l);
+	return (&peco);
+	// if (!peco.c || !peco.o || !peco.p)
+	// 	error_exit("Error: map must have min 1 'C0P'\n", fd, line, next_l);
 }
 
 static int	iswall(char *s, char flag, int fd)
@@ -107,6 +110,7 @@ static int	map_valid(int fd, t_frame *game)
 {
 	char	*line;
 	char	*next_l;
+	t_peco	*peco;
 
 	line = get_next_line(fd);
 	game->cols = iswall(line, ' ', fd);
@@ -115,11 +119,13 @@ static int	map_valid(int fd, t_frame *game)
 	next_l = get_next_line(fd);
 	while (next_l)
 	{
-		ismiddle(line, next_l, game->cols, fd);
+		peco = ismiddle(line, next_l, game->cols, fd);
 		free(line);
 		line = next_l;
 		next_l = get_next_line(fd);
 	}
+	if ((!peco->c) || !peco->o || !peco->p)
+		error_exit("Error: map must have min 1 'C0P'\n", fd, line, next_l);
 	if (game->cols != iswall(line, 'l', fd))
 		error_exit("Error: 1st wall line != last one\n", fd, line, NULL);
 	free(line);
