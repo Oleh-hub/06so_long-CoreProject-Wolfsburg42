@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/16 20:05:09 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/17 19:03:43 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,10 @@ typedef struct s_peco
 	int		l;
 }				t_peco;
 
+void	peco_chrs_chck(t_peco *peco, t_func_pars chr_chck);
+t_peco	*ismiddle(char *line, char *next_l, int cols, int fd);
+int		iswall(char *s, char flag, int fd);
+int		map_valid(int fd, t_frame *game);
+void	init_frame_start(t_frame *game);
 void	error_exit(const char *s, int fd, char *line, char *line1);
 #endif  /* SO_LONG_H */
