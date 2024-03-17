@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/17 15:31:49 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/17 16:18:59 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,7 @@ static t_frame	*map_check(char *av)
 	init_frame(game);
 	if (!map_valid(fd, game))
 		ft_printf("map %s is not valid :)\n", av);
-	else
-		ft_printf("int fd = %i, t_frame *game = %p\n", fd, game); //
+	ft_printf("The map %s int is valid full ini of t_frame *game and check of path to b follwed\n", av); //
 	close(fd);
 	// is_path(game);
 	return (game);
