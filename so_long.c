@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/16 20:37:31 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/17 15:31:49 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 #include "so_long.h"
 
-void	peco_chr_chck(t_peco *peco, t_func_pars chr_chck)
+void	peco_chrs_chck(t_peco *peco, t_func_pars chr_chck)
 {
 	if (chr_chck.line[chr_chck.cols] == 'P')
 	{
@@ -60,18 +60,16 @@ t_peco	*ismiddle(char *line, char *next_l, int cols, int fd)
 	if (line[0] != '1' || line[cols - 1] != '1')
 		error_exit("Error: surround map by '1'\n", fd, line, next_l);
 	chr_chck.cols--;
-	while (line[chr_chck.cols] && (line[chr_chck.cols] == '0'
+	while ((line[chr_chck.cols] >= 0) && (line[chr_chck.cols] == '0'
 			|| line[chr_chck.cols] == 'P' || line[chr_chck.cols] == 'E'
 			|| line[chr_chck.cols] == 'C' || line[chr_chck.cols] == '1'))
 	{
-		peco_chr_chck(&peco, chr_chck);
+		peco_chrs_chck(&peco, chr_chck);
 		chr_chck.cols--;
 	}
 	if (chr_chck.cols >= 0)
 		error_exit("Error: map must be only '0PEC1' chars\n", fd, line, next_l);
 	return (&peco);
-	// if (!peco.c || !peco.o || !peco.p)
-	// 	error_exit("Error: map must have min 1 'C0P'\n", fd, line, next_l);
 }
 
 static int	iswall(char *s, char flag, int fd)
@@ -117,11 +115,13 @@ static int	map_valid(int fd, t_frame *game)
 	free(line);
 	line = get_next_line(fd);
 	next_l = get_next_line(fd);
+	game->rows = 2;
 	while (next_l)
 	{
 		peco = ismiddle(line, next_l, game->cols, fd);
 		free(line);
 		line = next_l;
+		game->rows++;
 		next_l = get_next_line(fd);
 	}
 	if ((!peco->c) || !peco->o || !peco->p)
@@ -142,6 +142,7 @@ static void	init_frame(t_frame *game)
 	game->collected = 0;
 }
 
+/* checks the map.name and calls for map_valid that checks the map content */
 static t_frame	*map_check(char *av)
 {
 	t_frame	*game;
@@ -161,8 +162,9 @@ static t_frame	*map_check(char *av)
 	if (!map_valid(fd, game))
 		ft_printf("map %s is not valid :)\n", av);
 	else
-		ft_printf("int fd = %i, t_frame *game = %p\n", fd, game);
+		ft_printf("int fd = %i, t_frame *game = %p\n", fd, game); //
 	close(fd);
+	// is_path(game);
 	return (game);
 }
 
