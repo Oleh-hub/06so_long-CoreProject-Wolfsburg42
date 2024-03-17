@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/17 16:18:59 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/17 18:04:54 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	peco_chrs_chck(t_peco *peco, t_func_pars chr_chck)
 {
 	if (chr_chck.line[chr_chck.cols] == 'P')
 	{
-		if (peco->p > 1)
+		if (peco->p >= 1)
 			error_exit("Error: let map have 1 'P'\n", chr_chck.fd,
 				chr_chck.line, chr_chck.next_l);
 		peco->p++;
 	}
 	if (chr_chck.line[chr_chck.cols] == 'E')
 	{
-		if (peco->e > 1)
+		if (peco->e >= 1)
 			error_exit("Error: let map have 1 'E'\n", chr_chck.fd,
 				chr_chck.line, chr_chck.next_l);
 		peco->e++;
@@ -88,7 +88,7 @@ static int	iswall(char *s, char flag, int fd)
 		{
 			if (flag == 'l')
 				ft_printf("Here should be the extra mem leaks lequedation\n");
-			error_exit("Error: map has non 1 chars\n", fd, s, NULL);
+			error_exit("Error: map has non '1' chars\n", fd, s, NULL);
 		}
 		i++;
 	}
@@ -132,7 +132,7 @@ static int	map_valid(int fd, t_frame *game)
 	return (game->rows);
 }
 
-static void	init_frame(t_frame *game)
+static void	init_frame_start(t_frame *game)
 {
 	game->rows = 0;
 	game->cols = 0;
@@ -158,10 +158,12 @@ static t_frame	*map_check(char *av)
 	game = (t_frame *)malloc(sizeof(t_frame));
 	if (!game)
 		error_exit("Error: Memory allocation failed\n", fd, NULL, NULL);
-	init_frame(game);
+	init_frame_start(game);
 	if (!map_valid(fd, game))
 		ft_printf("map %s is not valid :)\n", av);
 	ft_printf("The map %s int is valid full ini of t_frame *game and check of path to b follwed\n", av); //
+	// init_frame_finish(game);
+	
 	close(fd);
 	// is_path(game);
 	return (game);
