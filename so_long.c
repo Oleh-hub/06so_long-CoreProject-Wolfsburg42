@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/17 19:02:46 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/17 19:30:46 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 // Nm -r ./so_long
 
 #include "so_long.h"
+
+static void init_frame_finish(t_frame *game)
+{
+	(void) game;
+}
 
 /* checks the map.name and calls for map_valid that checks the map content */
 static t_frame	*map_check(char *av)
@@ -42,7 +47,7 @@ static t_frame	*map_check(char *av)
 	if (!map_valid(fd, game))
 		ft_printf("map %s is not valid :)\n", av);
 	ft_printf("The map %s int is valid full ini of t_frame *game and check of path to b follwed\n", av); //
-	// init_frame_finish(game);
+	init_frame_finish(game);
 	close(fd);
 	// is_path(game);
 	return (game);
