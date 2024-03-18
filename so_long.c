@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/18 12:25:09 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/18 20:05:49 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,60 @@
 
 #include "so_long.h"
 
-static int init_frame_map(t_frame *game, int fd)
+static void	is_path(t_frame *game)
+{
+	(void) game;
+	int	**marked;
+	int	i;
+
+	marked = (int **)ft_calloc(game->rows, sizeof(int *));
+	i = -1;
+	while (++i < game->rows)
+		marked[i] = (int *)ft_calloc(game->cols, sizeof(int));
+	{	// tracing
+		ft_printf("b4 mark_path(), marked:\n");
+		for (int i = 0; i < game->rows; i++)
+			{
+				for (int j = 0; j < game->cols; j++)
+					ft_printf("%i", marked[i][j]);
+				ft_printf("\n");
+			}
+		ft_printf(" b4 mark_path(), game->map:\n");
+		for (int i = 0; i < game->rows; i++)
+			ft_printf("%s\n", game->map[i]);
+	}
+	// mark_path();
+	// check_path();
+	while(--i >= 0)
+		free(marked[i]);
+	free(marked);
+}
+
+// inits 'P'layer's position[cols, rows], number of 'E'xits 
+// and 'C'ollactables
+static void is_pec(t_frame *game)
+{
+	(void) game;
+}
+
+
+// inits game->map, 'P'layer's position[cols, rows], number of 'E'xits 
+// and 'C'ollactables
+static void init_frame_map(t_frame *game, int fd)
 {
 	int		i;
-	// char	*line;
+	char	*line;
 
-	game->map = (char **) ft_calloc(game->rows + 1, sizeof(char *));
+	game->map = (char **)ft_calloc(game->rows + 1, sizeof(char *));
 	if (!game->map)
 		error_exit("Error: memory allocation failed\n", fd, NULL, NULL);
 	game->map[game->rows] = NULL;
 	i = -1;
 	while (++i < game->rows)
 	{
-		game->map[i] = get_next_line(fd);
-		// game->map[i] = (char *) ft_calloc(game->cols, sizeof(char));
+		line = get_next_line(fd);
+		game->map[i] = ft_strtrim(line, "\n");
+		free(line);
 		if (!game->map[i])
 		{
 			while (--i >= 0)
@@ -44,8 +84,8 @@ static int init_frame_map(t_frame *game, int fd)
 			error_exit("Error: memory allocation failed\n", fd, NULL, NULL);
 		}
 	}
+	is_pec(game);
 	close(fd);
-	return (1);
 }
 
 /* checks the map.name and calls for map_valid that checks the map content */
@@ -72,7 +112,8 @@ static t_frame	*map_check(char *av)
 	fd = open(av, O_RDONLY);
 	init_frame_map(game, fd);
 	ft_printf("The map %s is included into t_frame *game.  The path to b follwed\n", av); //
-	// is_path(game);
+	is_path(game);
+	ft_printf("The path to b finished here\n"); //
 	i = -1;
 	while (game->map[++i])
 		free(game->map[i]);
