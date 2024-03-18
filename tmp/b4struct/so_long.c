@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/15 17:44:33 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/18 11:30:39 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ static int	map_valid(int fd, t_frame *game)
 	if (game->cols != iswall(line, 'l', fd))
 		error_exit("Error: 1st wall line != last one\n", fd, line, NULL);
 	free(line);
+	close(fd);
 	return (game->rows);
 }
 

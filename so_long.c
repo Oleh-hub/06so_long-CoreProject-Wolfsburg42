@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/17 19:30:46 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/18 12:25:09 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,30 @@
 
 #include "so_long.h"
 
-static void init_frame_finish(t_frame *game)
+static int init_frame_map(t_frame *game, int fd)
 {
-	(void) game;
+	int		i;
+	// char	*line;
+
+	game->map = (char **) ft_calloc(game->rows + 1, sizeof(char *));
+	if (!game->map)
+		error_exit("Error: memory allocation failed\n", fd, NULL, NULL);
+	game->map[game->rows] = NULL;
+	i = -1;
+	while (++i < game->rows)
+	{
+		game->map[i] = get_next_line(fd);
+		// game->map[i] = (char *) ft_calloc(game->cols, sizeof(char));
+		if (!game->map[i])
+		{
+			while (--i >= 0)
+				free(game->map[i]);
+			free(game->map);
+			error_exit("Error: memory allocation failed\n", fd, NULL, NULL);
+		}
+	}
+	close(fd);
+	return (1);
 }
 
 /* checks the map.name and calls for map_valid that checks the map content */
@@ -33,6 +54,7 @@ static t_frame	*map_check(char *av)
 	t_frame	*game;
 	char	*ext;
 	int		fd;
+	int		i;
 
 	ext = ft_strrchr(av, '.');
 	if (!ext || ft_strlen(ext) != 4 || ft_strncmp(ext, ".ber", 4))
@@ -40,16 +62,21 @@ static t_frame	*map_check(char *av)
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		error_exit("Error: map file cannot be open\n", 0, NULL, NULL);
-	game = (t_frame *)malloc(sizeof(t_frame));
+	game = (t_frame *)ft_calloc(1, sizeof(t_frame));
 	if (!game)
 		error_exit("Error: Memory allocation failed\n", fd, NULL, NULL);
 	init_frame_start(game);
 	if (!map_valid(fd, game))
 		ft_printf("map %s is not valid :)\n", av);
-	ft_printf("The map %s int is valid full ini of t_frame *game and check of path to b follwed\n", av); //
-	init_frame_finish(game);
-	close(fd);
+	// ft_printf("The map %s int is valid full ini of t_frame *game and check of path to b follwed\n", av); //
+	fd = open(av, O_RDONLY);
+	init_frame_map(game, fd);
+	ft_printf("The map %s is included into t_frame *game.  The path to b follwed\n", av); //
 	// is_path(game);
+	i = -1;
+	while (game->map[++i])
+		free(game->map[i]);
+	free(game->map);
 	return (game);
 }
 
