@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/15 13:36:00 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/19 11:04:01 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@
 typedef struct s_frame
 {
 	char	**map;
-	int		rows;
-	int		cols;
-	int		collectibles;
-	int		exit;
+	int		player[2];					// player's coordinated [row][collumn]
+	int		rows;						// map rows number
+	int		cols;						// map columns number
+	int		collectibles;				// collectibles number
+	int		exit;						// exit number
 	int		steps;
 	int		collected;
 }			t_frame;

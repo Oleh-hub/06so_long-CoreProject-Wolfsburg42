@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/18 20:05:49 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/19 11:21:30 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,41 @@ static void	is_path(t_frame *game)
 
 // inits 'P'layer's position[cols, rows], number of 'E'xits 
 // and 'C'ollactables
+// static int is_pec(t_frame *game)
 static void is_pec(t_frame *game)
 {
 	(void) game;
+	int 	raw;
+	int		col;
+	// int		p;
+	
+	// p	= 0;
+	raw = -1;
+	// while (game->map[++raw])
+	while (++raw < game->rows)
+	{
+		// { //debug tracing
+		// 	if (raw == 1) 
+		// 		ft_printf("raw == 1\n");
+		// }
+		col = -1;
+		// while(game->map[++col])
+		while(++col < game->cols)
+		{
+			if(game->map[raw][col]	== 'P')
+			{
+				game->player[0] = col;
+				game->player[1] = raw;
+				// p++;	
+			}
+			if(game->map[raw][col]	== 'E')
+				game->exit++;
+			if(game->map[raw][col]	== 'C')
+				game->collectibles++;
+		}
+	}
+	// return (p);
 }
-
 
 // inits game->map, 'P'layer's position[cols, rows], number of 'E'xits 
 // and 'C'ollactables
@@ -84,6 +114,18 @@ static void init_frame_map(t_frame *game, int fd)
 			error_exit("Error: memory allocation failed\n", fd, NULL, NULL);
 		}
 	}
+	{ //debug tracing
+		ft_printf("map b4 is_pec():\n");
+		for (int i = 0; i < game->rows; i++)
+			ft_printf("%s\n", game->map[i]);
+	}
+	//  the following check was already made when the map file was checked.
+	// if (is_pec(game) != 1 || game->exit != 1 || game->collectibles < 1)
+	// 	{
+	// 		while (++i < game->rows)
+	// 			free(game->map[i]);
+	// 		error_exit("Error: check if P and E = 1, C > 0\n", fd, game->map, NULL);
+	// }
 	is_pec(game);
 	close(fd);
 }
