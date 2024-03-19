@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/19 16:06:02 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/19 20:40:13 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,18 @@
 #include "so_long.h"
 
 // marking all player reachable spots on the map mirror (marked) with '1'
-
 static void mark_path(t_frame *game, int row, int col, int **marked)
 {
-	(void) game;
-	(void) marked;
-
 	if (!(row > 0 && row < game->rows - 1 && col > 0 && col < game->cols - 1))
 		return ;
-	// 
-	
-		
+	if (game->map[row][col] != '1' && marked[row][col] != 1)
+	{
+		marked[row][col] = 1;
+	}
+	mark_path(game, ++row, col, marked);
+	mark_path(game, --row, col, marked);
+	mark_path(game, row, ++col, marked);
+	mark_path(game, row, --col, marked);
 }
 
 // Makes a copy of games->map
@@ -59,6 +60,15 @@ static void	is_path(t_frame *game)
 			ft_printf("%s\n", game->map[i]);
 	}
 	mark_path(game, game->player[0], game->player[1], marked);
+	{
+		ft_printf("b4 mark_path(), marked:\n");
+		for (int i = 0; i < game->rows; i++)
+			{
+				for (int j = 0; j < game->cols; j++)
+					ft_printf("%i", marked[i][j]);
+				ft_printf("\n");
+			}
+	}
 	// check_path();
 	while(--i >= 0)
 		free(marked[i]);
