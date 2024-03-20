@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/19 20:40:13 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 09:22:43 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,26 @@
 static void mark_path(t_frame *game, int row, int col, int **marked)
 {
 	if (!(row > 0 && row < game->rows - 1 && col > 0 && col < game->cols - 1))
+	{
+		{ 	// debug tracing:
+			ft_printf("mark_path() b4 return, marked:\n");
+			for (int i = 0; i < game->rows; i++)
+				{
+					for (int j = 0; j < game->cols; j++)
+						ft_printf("%i", marked[i][j]);
+					ft_printf("\n");
+				}
+		}
 		return ;
+	}
 	if (game->map[row][col] != '1' && marked[row][col] != 1)
 	{
 		marked[row][col] = 1;
+		mark_path(game, row, col + 1, marked);
+		mark_path(game, row, col - 1, marked);
+		mark_path(game, row + 1, col, marked);
+		mark_path(game, row - 1, col, marked);
 	}
-	mark_path(game, ++row, col, marked);
-	mark_path(game, --row, col, marked);
-	mark_path(game, row, ++col, marked);
-	mark_path(game, row, --col, marked);
 }
 
 // Makes a copy of games->map
@@ -60,8 +71,8 @@ static void	is_path(t_frame *game)
 			ft_printf("%s\n", game->map[i]);
 	}
 	mark_path(game, game->player[0], game->player[1], marked);
-	{
-		ft_printf("b4 mark_path(), marked:\n");
+	{ // debug tracing
+		ft_printf("is_path(), marked:\n");
 		for (int i = 0; i < game->rows; i++)
 			{
 				for (int j = 0; j < game->cols; j++)
@@ -94,8 +105,8 @@ static void is_pec(t_frame *game)
 		{
 			if(game->map[raw][col]	== 'P')
 			{
-				game->player[0] = col;
-				game->player[1] = raw;
+				game->player[0] = raw;
+				game->player[1] = col;
 			}
 			if(game->map[raw][col]	== 'E')
 				game->exit++;
@@ -131,11 +142,11 @@ static void init_frame_map(t_frame *game, int fd)
 			error_exit("Error: memory allocation failed\n", fd, NULL, NULL);
 		}
 	}
-	{ //debug tracing
-		ft_printf("map b4 is_pec():\n");
-		for (int i = 0; i < game->rows; i++)
-			ft_printf("%s\n", game->map[i]);
-	}
+	// { //debug tracing
+	// 	ft_printf("map b4 is_pec():\n");
+	// 	for (int i = 0; i < game->rows; i++)
+	// 		ft_printf("%s\n", game->map[i]);
+	// }
 	is_pec(game);
 	close(fd);
 }
