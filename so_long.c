@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 15:10:16 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 16:39:38 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,30 @@
 
 #include "so_long.h"
 
-static void	load_wiz_collectables(t_frame game)
+// reads images of wall, floor, 2 images of door (closed[0] and open[1])
+static void	reads_wall_door(t_frame *game)
 {
-	(void) game;
+	game->wall = mlx_xpm_file_to_image(game->mlx, \
+			"./imgs/xpm/wall.xpm", &game->img_side, &game->img_side);
+	game->floor = mlx_xpm_file_to_image(game->mlx, \
+			"./imgs/xpm/floor.xpm", &game->img_side, &game->img_side);
+	game->door[0] = mlx_xpm_file_to_image(game->mlx, \
+			"./imgs/xpm/door0.xpm", &game->img_side, &game->img_side);
+	game->door[1] = mlx_xpm_file_to_image(game->mlx, \
+			"./imgs/xpm/door1.xpm", &game->img_side, &game->img_side);
+}
+
+// reads images of 'P'layer right[0] and left[1] and 'C'ollectibles
+static void	read_player_cllctbls(t_frame *game)
+{
+	game->collectibles = mlx_xpm_file_to_image(game->mlx, \
+			"./imgs/xpm/collectibles.xpm", &game->img_side, &game->img_side);
+	game->player[0] = mlx_xpm_file_to_image(game->mlx, \
+			"./imgs/xpm/player_right.xpm", &game->img_side, &game->img_side);
+	game->player[1] = mlx_xpm_file_to_image(game->mlx, \
+			"./imgs/xpm/player_left.xpm", &game->img_side, &game->img_side);
+
+			// to be folleed
 }
 
 // the works with minilibx for mac starts here
@@ -36,7 +57,8 @@ static void	start_mlx(t_frame *game)
 	game->mlx_win = mlx_new_window(game->mlx, PIC_SIZE * game->cols, \
 		PIC_SIZE * game->rows, "so_long project");
 	game->lastpos = '0';
-	load_wiz_collectables(game);
+	read_player_cllctbls(game);
+	reads_wall_door(game);
 }
 
 /* checks the map.name and calls for map_valid that checks the map content */

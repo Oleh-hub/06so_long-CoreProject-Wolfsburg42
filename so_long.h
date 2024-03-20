@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 15:06:44 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 16:40:46 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,13 @@ typedef struct s_frame
 	char	**map;
 	void	*mlx;
 	void	*mlx_win;
+	void	*collectibles;
+	void	*player[2];
+	void	*wall;
+	void	*floor;
+	void	*door[2];		// 2 pics: open and closed door
 	char	lastpos;	 	// last position validation flag. should == '0'
+	int		img_side;		// 4 mlx_xpm_file_to_image() 2 b width and height
 	int		player[2];		// player's coordinated [row][collumn]
 	int		rows;
 	int		cols;
