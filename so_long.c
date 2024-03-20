@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 09:22:43 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:04:29 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,37 @@
 
 #include "so_long.h"
 
-// marking all player reachable spots on the map mirror (marked) with '1'
+// checks if 'P' can reach 'E' and collect all 'C'
+static void check_path(t_frame *game, int **marked)
+{
+	int i;
+	int j;
+	
+	i = -1;
+	while (++i < game->rows)
+	{
+		j = -1;
+		while (++j < game->cols)
+			if ((game->map[i][j] == 'E' && !marked[i][j]) || 
+				(game->map[i][j] == 'C' && !marked[i][j]))
+			{
+				i = -1;
+				while (++i < game->rows)
+				{
+					free(game->map[i]);
+					free(marked[i]);
+				}
+				free(game->map);
+				free(marked);
+				error_exit("Error: E or C is not reachable\n", -1, NULL, NULL);
+			}
+	}
+}
+
+//  this function recursively explores the grid in all directions, marking the
+//   path (marked) as it progresses through valid cells (not '1' ) on the grid.
 static void mark_path(t_frame *game, int row, int col, int **marked)
 {
-	if (!(row > 0 && row < game->rows - 1 && col > 0 && col < game->cols - 1))
-	{
-		{ 	// debug tracing:
-			ft_printf("mark_path() b4 return, marked:\n");
-			for (int i = 0; i < game->rows; i++)
-				{
-					for (int j = 0; j < game->cols; j++)
-						ft_printf("%i", marked[i][j]);
-					ft_printf("\n");
-				}
-		}
-		return ;
-	}
 	if (game->map[row][col] != '1' && marked[row][col] != 1)
 	{
 		marked[row][col] = 1;
@@ -48,7 +63,7 @@ static void mark_path(t_frame *game, int row, int col, int **marked)
 	}
 }
 
-// Makes a copy of games->map
+// Makes a matrix int **marked, equivalent to char ** games->map
 static void	is_path(t_frame *game)
 {
 	int	**marked;
@@ -58,29 +73,8 @@ static void	is_path(t_frame *game)
 	i = -1;
 	while (++i < game->rows)
 		marked[i] = (int *)ft_calloc(game->cols, sizeof(int));
-	{	// tracing
-		ft_printf("b4 mark_path(), marked:\n");
-		for (int i = 0; i < game->rows; i++)
-			{
-				for (int j = 0; j < game->cols; j++)
-					ft_printf("%i", marked[i][j]);
-				ft_printf("\n");
-			}
-		ft_printf(" b4 mark_path(), game->map:\n");
-		for (int i = 0; i < game->rows; i++)
-			ft_printf("%s\n", game->map[i]);
-	}
 	mark_path(game, game->player[0], game->player[1], marked);
-	{ // debug tracing
-		ft_printf("is_path(), marked:\n");
-		for (int i = 0; i < game->rows; i++)
-			{
-				for (int j = 0; j < game->cols; j++)
-					ft_printf("%i", marked[i][j]);
-				ft_printf("\n");
-			}
-	}
-	// check_path();
+	check_path(game, marked);
 	while(--i >= 0)
 		free(marked[i]);
 	free(marked);
@@ -96,10 +90,6 @@ static void is_pec(t_frame *game)
 	raw = -1;
 	while (++raw < game->rows)
 	{
-		// { //debug tracing
-		// 	if (raw == 1) 
-		// 		ft_printf("raw == 1\n");
-		// }
 		col = -1;
 		while(++col < game->cols)
 		{
@@ -142,11 +132,6 @@ static void init_frame_map(t_frame *game, int fd)
 			error_exit("Error: memory allocation failed\n", fd, NULL, NULL);
 		}
 	}
-	// { //debug tracing
-	// 	ft_printf("map b4 is_pec():\n");
-	// 	for (int i = 0; i < game->rows; i++)
-	// 		ft_printf("%s\n", game->map[i]);
-	// }
 	is_pec(game);
 	close(fd);
 }
@@ -171,12 +156,10 @@ static t_frame	*map_check(char *av)
 	init_frame_start(game);
 	if (!map_valid(fd, game))
 		ft_printf("map %s is not valid :)\n", av);
-	// ft_printf("The map %s int is valid full ini of t_frame *game and check of path to b follwed\n", av); //
 	fd = open(av, O_RDONLY);
 	init_frame_map(game, fd);
-	ft_printf("!!!======The map %s is included into t_frame *game.  The path to b follwed\n", av); //
 	is_path(game);
-	ft_printf("!!!=======The path to b finished here\n"); //
+	ft_printf("!!!=======mlx starts here!\n"); //
 	i = -1;
 	while (game->map[++i])
 		free(game->map[i]);
