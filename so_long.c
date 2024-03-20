@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 13:14:29 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:10:16 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@
 // Nm -r ./so_long
 
 #include "so_long.h"
+
+static void	load_wiz_collectables(t_frame game)
+{
+	(void) game;
+}
+
+// the works with minilibx for mac starts here
+// plz note that during map parcing [rows][cols] (y,x) were used but now:
+// [cols][rows] (x,y) !
+static void	start_mlx(t_frame *game)
+{
+	game->mlx = mlx_init();
+	game->mlx_win = mlx_new_window(game->mlx, PIC_SIZE * game->cols, \
+		PIC_SIZE * game->rows, "so_long project");
+	game->lastpos = '0';
+	load_wiz_collectables(game);
+}
 
 /* checks the map.name and calls for map_valid that checks the map content */
 static t_frame	*map_check(char *av)
@@ -59,6 +76,7 @@ int	main(int ac, char **av)
 	}
 	game = map_check(av[1]);
 	ft_printf("!!!=======work with mlx starts here!\n"); //
+	start_mlx(game);
 	i = -1;
 	while (game->map[++i])
 		free(game->map[i]);

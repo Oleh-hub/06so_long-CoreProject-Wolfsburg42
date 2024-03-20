@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 13:05:36 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:06:44 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,19 @@
 # include "libft/gnl/get_next_line.h"
 # include "minilibx_macos/mlx.h"
 # include <fcntl.h>                     // open()
-// # include <stdbool.h>
 
+// defines to work with mlx library
+# ifndef MLX_PIC_SIZE
+#  define PIC_SIZE 80
+# endif	/* MLX_PIC_SIZE */
+
+// frame 4 almost everything (map parcing + work with mlx)
 typedef struct s_frame
 {
 	char	**map;
+	void	*mlx;
+	void	*mlx_win;
+	char	lastpos;	 	// last position validation flag. should == '0'
 	int		player[2];		// player's coordinated [row][collumn]
 	int		rows;
 	int		cols;

@@ -1,0 +1,47 @@
+09.03
+problems with .vscode/launch.json in Ubuntu was solved by changing:
+ '"MIMode": "gdb",' instead of '"lldb"' as it was for MacOS
+https://code.visualstudio.com/docs/cpp/config-linux
+
+7.03
+// https://github.com/jotavare/42-resources?tab=readme-ov-file#02-so_long
+// https://reactive.so/post/42-a-comprehensive-guide-to-so_long
+// https://www.youtube.com/watch?v=D1DeE-Qit3M&t=17s
+6.03
+ls -p /sgoinfre/alappas/alappas/42WOLFSBURG/Evaluations/
+https://projects.intra.42.fr/projects/so_long
+https://cdn.intra.42.fr/pdf/pdf/106591/en.subject.pdf                   subject
+https://harm-smits.github.io/42docs/libs/minilibx/events.html
+https://harm-smits.github.io/42docs/libs/minilibx/introduction.html     minilibx
+https://itch.io/game-assets/free/tag-sprites                            sprites, ref from subj
+file:///home/oruban/Documents/42_evals/Cursus/So_long/index.html        evaluation sheet
+
+these are local manuals for minilibx-linux:
+oruban@c2r14s8:~/Desktop/so_longDoma/minilibx-linux/man/man1$ ls -tmpla
+total 24
+drwxr-xr-x 4 oruban 2023_wolfsburg   30 Mär  5 11:09 ../
+drwxr-xr-x 2 oruban 2023_wolfsburg  107 Feb 28  2022 ./
+-rw-r--r-- 1 oruban 2023_wolfsburg 2421 Feb 28  2022 mlx.1
+-rw-r--r-- 1 oruban 2023_wolfsburg 3287 Feb 28  2022 mlx_loop.1
+-rw-r--r-- 1 oruban 2023_wolfsburg 4312 Feb 28  2022 mlx_new_image.1
+-rw-r--r-- 1 oruban 2023_wolfsburg 1461 Feb 28  2022 mlx_new_window.1
+-rw-r--r-- 1 oruban 2023_wolfsburg 1852 Feb 28  2022 mlx_pixel_put.1
+oruban@c2r14s8:~/Desktop/so_longDoma/minilibx-linux/man/man1$ ls -tmpla ../man3/
+total 24
+drwxr-xr-x 2 oruban 2023_wolfsburg  107 Mär  5 11:09 ./
+drwxr-xr-x 4 oruban 2023_wolfsburg   30 Mär  5 11:09 ../
+-rw-r--r-- 1 oruban 2023_wolfsburg 2421 Feb 28  2022 mlx.3
+-rw-r--r-- 1 oruban 2023_wolfsburg 3287 Feb 28  2022 mlx_loop.3
+-rw-r--r-- 1 oruban 2023_wolfsburg 4312 Feb 28  2022 mlx_new_image.3
+-rw-r--r-- 1 oruban 2023_wolfsburg 1461 Feb 28  2022 mlx_new_window.3
+-rw-r--r-- 1 oruban 2023_wolfsburg 1814 Feb 28  2022 mlx_pixel_put.3
+they canm be open with "man -l mlx.1" command
+
+ Tobias Riedel triedel has saved them as html s: file:///sgoinfre/triedel/public/man/mlx_new_image.html
+ https://github.com/qst0/ft_libgfx/blob/master/man_mlx.md explanation of minilibx
+
+'strace valgrind ./so_long' gives details 
+
+MiniLibX - Simple Graphical Interface Library for students:
+https://github.com/qst0/ft_libgfx/blob/master/man_mlx.md 
+
