@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 12:58:37 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 13:05:36 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ t_peco	*ismiddle(char *line, char *next_l, int cols, int fd);
 int		iswall(char *s, char flag, int fd);
 int		map_valid(int fd, t_frame *game);
 void	init_frame_start(t_frame *game);
+// 99utils.c :
 void	error_exit(const char *s, int fd, char *line, char *line1);
 #endif  /* SO_LONG_H */
