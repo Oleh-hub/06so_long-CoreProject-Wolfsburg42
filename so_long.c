@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 12:04:29 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:19:28 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,18 @@
 #include "so_long.h"
 
 // checks if 'P' can reach 'E' and collect all 'C'
-static void check_path(t_frame *game, int **marked)
+static void	check_path(t_frame *game, int **marked)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = -1;
 	while (++i < game->rows)
 	{
 		j = -1;
 		while (++j < game->cols)
-			if ((game->map[i][j] == 'E' && !marked[i][j]) || 
+		{
+			if ((game->map[i][j] == 'E' && !marked[i][j]) ||
 				(game->map[i][j] == 'C' && !marked[i][j]))
 			{
 				i = -1;
@@ -46,12 +47,13 @@ static void check_path(t_frame *game, int **marked)
 				free(marked);
 				error_exit("Error: E or C is not reachable\n", -1, NULL, NULL);
 			}
+		}
 	}
 }
 
 //  this function recursively explores the grid in all directions, marking the
 //   path (marked) as it progresses through valid cells (not '1' ) on the grid.
-static void mark_path(t_frame *game, int row, int col, int **marked)
+static void	mark_path(t_frame *game, int row, int col, int **marked)
 {
 	if (game->map[row][col] != '1' && marked[row][col] != 1)
 	{
@@ -75,32 +77,32 @@ static void	is_path(t_frame *game)
 		marked[i] = (int *)ft_calloc(game->cols, sizeof(int));
 	mark_path(game, game->player[0], game->player[1], marked);
 	check_path(game, marked);
-	while(--i >= 0)
+	while (--i >= 0)
 		free(marked[i]);
 	free(marked);
 }
 
 // inits 'P'layer's position[cols, rows], number of 'E'xits 
 // and 'C'ollactables
-static void is_pec(t_frame *game)
+static void	is_pec(t_frame *game)
 {
-	int 	raw;
-	int		col;
-	
+	int	raw;
+	int	col;
+
 	raw = -1;
 	while (++raw < game->rows)
 	{
 		col = -1;
-		while(++col < game->cols)
+		while (++col < game->cols)
 		{
-			if(game->map[raw][col]	== 'P')
+			if (game->map[raw][col] == 'P')
 			{
 				game->player[0] = raw;
 				game->player[1] = col;
 			}
-			if(game->map[raw][col]	== 'E')
+			if (game->map[raw][col] == 'E')
 				game->exit++;
-			if(game->map[raw][col]	== 'C')
+			if (game->map[raw][col] == 'C')
 				game->collectibles++;
 		}
 	}
@@ -109,7 +111,7 @@ static void is_pec(t_frame *game)
 // inits game->map and!:
 //  'P'layer's position[column, row],
 //  number of 'E'xits and 'C'ollactables
-static void init_frame_map(t_frame *game, int fd)
+static void	init_frame_map(t_frame *game, int fd)
 {
 	int		i;
 	char	*line;

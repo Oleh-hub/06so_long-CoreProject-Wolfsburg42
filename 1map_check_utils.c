@@ -6,12 +6,14 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/19 11:10:09 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:23:42 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// checks if the mapfile.ber has at least 1 'P', 1 'E' and counts 'C', '0' 
+// and '1's
 void	peco_chrs_chck(t_peco *peco, t_func_pars chr_chck)
 {
 	if (chr_chck.line[chr_chck.cols] == 'P')
@@ -62,6 +64,7 @@ t_peco	*ismiddle(char *line, char *next_l, int cols, int fd)
 	return (&peco);
 }
 
+// check if the char *s is a wall (consists only of '1' chars)
 int	iswall(char *s, char flag, int fd)
 {
 	int	i;
