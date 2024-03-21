@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/21 19:07:39 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/21 19:35:28 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@
 # include <fcntl.h>                     // open()
 
 // defines to work with mlx library
-# ifndef MLX_PIC_SIZE
-#  define PIC_SIZE 80
+# ifndef MLX_PIC_SIZE		// pixels in picture
+#  define PIC_SIZE 80 		// Complete list of AppleScript key codes'
 #  define ESC_KEY 53
+#  define KEY_W 13
+#  define KEY_S 1
+#  define KEY_D 2
+#  define KEY_A 0
 # endif	/* MLX_PIC_SIZE */
 
 // frame 4 almost everything (map parcing + work with mlx)
