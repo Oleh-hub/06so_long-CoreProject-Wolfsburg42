@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 16:39:38 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/21 14:06:17 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,42 @@
 
 #include "so_long.h"
 
+// function calles for mlx_put_image_to_window() in compact way,
+// 2 allow init_map() less then 25 lines
+static void	shrt_img2win(t_frame *game, void *img, int x, int y)
+{
+	mlx_put_image_to_window(game->mlx, game->mlx_win, img, \
+		x * PIC_SIZE, y * PIC_SIZE);
+}
+
+// putting all images to mlx window - initiating the map
+static void	init_map(t_frame *game)
+{
+	int	col;
+	int	row;
+
+	col = -1;
+	while (++col < game->cols)
+	{
+		row = -1;
+		while (++row < game->rows)
+		{
+			if (game->map[row][col] == '1')
+				shrt_img2win(game, game->wall, col, row);
+			if (game->map[row][col] == '0')
+				shrt_img2win(game, game->floor, col, row);
+			if (game->map[row][col] == 'C')
+				shrt_img2win(game, game->collectible, col, row);
+			if (game->map[row][col] == 'P')
+				shrt_img2win(game, game->player_img, col, row);
+			if (game->map[row][col] == 'E')
+				shrt_img2win(game, game->door[0], col, row);
+		}
+	}
+}
+
 // reads images of wall, floor, 2 images of door (closed[0] and open[1])
-static void	reads_wall_door(t_frame *game)
+static void	read_walls_door(t_frame *game)
 {
 	game->wall = mlx_xpm_file_to_image(game->mlx, \
 			"./imgs/xpm/wall.xpm", &game->img_side, &game->img_side);
@@ -35,17 +69,27 @@ static void	reads_wall_door(t_frame *game)
 			"./imgs/xpm/door1.xpm", &game->img_side, &game->img_side);
 }
 
-// reads images of 'P'layer right[0] and left[1] and 'C'ollectibles
+// reads images of 'P'layer right[0] and left[1] and 'C'ollectible
+// and sets the left or right turn player image depanding on 
+// starting map position.
 static void	read_player_cllctbls(t_frame *game)
 {
-	game->collectibles = mlx_xpm_file_to_image(game->mlx, \
-			"./imgs/xpm/collectibles.xpm", &game->img_side, &game->img_side);
-	game->player[0] = mlx_xpm_file_to_image(game->mlx, \
+	game->collectible = mlx_xpm_file_to_image(game->mlx, \
+			"./imgs/xpm/collectible.xpm", &game->img_side, &game->img_side);
+	game->player_sprite[0] = mlx_xpm_file_to_image(game->mlx, \
 			"./imgs/xpm/player_right.xpm", &game->img_side, &game->img_side);
-	game->player[1] = mlx_xpm_file_to_image(game->mlx, \
+	game->player_sprite[1] = mlx_xpm_file_to_image(game->mlx, \
 			"./imgs/xpm/player_left.xpm", &game->img_side, &game->img_side);
-
-			// to be folleed
+	if (game->player[1] <= game->cols / 2)
+	{
+		game->player_img = game->player_sprite[0];
+		game->direction = 'R';
+	}
+	if (game->player[1] > game->cols / 2)
+	{
+		game->player_img = game->player_sprite[1];
+		game->direction = 'L';
+	}
 }
 
 // the works with minilibx for mac starts here
@@ -58,7 +102,10 @@ static void	start_mlx(t_frame *game)
 		PIC_SIZE * game->rows, "so_long project");
 	game->lastpos = '0';
 	read_player_cllctbls(game);
-	reads_wall_door(game);
+	read_walls_door(game);
+	init_map(game);
+	ft_printf("!!!=======work with mlx is currently finished here!\n"); //
+	mlx_loop(game->mlx);
 }
 
 /* checks the map.name and calls for map_valid that checks the map content */
@@ -97,7 +144,6 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	game = map_check(av[1]);
-	ft_printf("!!!=======work with mlx starts here!\n"); //
 	start_mlx(game);
 	i = -1;
 	while (game->map[++i])
