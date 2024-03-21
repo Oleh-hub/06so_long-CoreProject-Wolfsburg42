@@ -6,22 +6,35 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:53:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/21 19:17:36 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/21 20:18:09 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+static void move_a_d(int keycode, t_frame *game)
+{
+	if (keycode == KEY_A)
+	{
+		
+	}
+	else if (keycode == KEY_D)
+	{
+		
+	}
+}
+
+// handling event KeyPress 02 of mlx_hook()
 int	key_hook(int keycode, t_frame *game)
 {
 	if (keycode == ESC_KEY)
 		correct_exit(game);
-	else if (keycode == KEY_D || keycode == KEY_A)
-	;
+	else if (keycode == KEY_A || keycode == KEY_D)
+		move_a_d(keycode, game);
 	else if (keycode == KEY_W)
-	;
+		;
 	else if (keycode == KEY_S)
-	;
+		;
 	return (0);
 }
 
