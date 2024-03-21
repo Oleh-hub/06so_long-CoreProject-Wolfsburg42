@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/21 14:06:17 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/21 18:02:51 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,19 @@ static void	read_player_cllctbls(t_frame *game)
 // the works with minilibx for mac starts here
 // plz note that during map parcing [rows][cols] (y,x) were used but now:
 // [cols][rows] (x,y) !
+//
+// mlx_hook(game->mlx_win, 2, 1L << 0, ft_key_hook, game);
+//==========================================================
+// PARAMETERS: 
+// '2' - event a key is been pressed, 
+// '1L << 0' - means that the handler funciton 'ft_key_hook 'should be
+// executed b4 next events
+// mlx_hook(game->mlx_win, 17, 1L << 2, free_destroy, game);
+//==========================================================
+// PARAMETERS: 
+// '17' - window close event, 
+// '1L << 2' -event mask 1L << 2 indicates that the hook function
+//  should be called after other events. 
 static void	start_mlx(t_frame *game)
 {
 	game->mlx = mlx_init();
@@ -104,7 +117,10 @@ static void	start_mlx(t_frame *game)
 	read_player_cllctbls(game);
 	read_walls_door(game);
 	init_map(game);
-	ft_printf("!!!=======work with mlx is currently finished here!\n"); //
+	ft_printf("Steps: %i\tHerbs: %i/%i\n", game->steps, game->collectibles, \
+		game->collected);
+	mlx_hook(game->mlx_win, 2, 1L << 0, key_hook, game);
+	mlx_hook(game->mlx_win, 17, 1L << 2, correct_exit, game);
 	mlx_loop(game->mlx);
 }
 
@@ -136,7 +152,6 @@ static t_frame	*map_check(char *av)
 int	main(int ac, char **av)
 {
 	t_frame	*game;
-	int		i;
 
 	if (ac != 2)
 	{
@@ -145,10 +160,5 @@ int	main(int ac, char **av)
 	}
 	game = map_check(av[1]);
 	start_mlx(game);
-	i = -1;
-	while (game->map[++i])
-		free(game->map[i]);
-	free(game->map);
-	free(game);
 	return (0);
 }

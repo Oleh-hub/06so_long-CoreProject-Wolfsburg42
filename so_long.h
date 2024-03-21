@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/21 12:15:41 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/21 19:07:39 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 // defines to work with mlx library
 # ifndef MLX_PIC_SIZE
 #  define PIC_SIZE 80
+#  define ESC_KEY 53
 # endif	/* MLX_PIC_SIZE */
 
 // frame 4 almost everything (map parcing + work with mlx)
@@ -80,5 +81,7 @@ int		iswall(char *s, char flag, int fd);
 int		map_valid(int fd, t_frame *game);
 void	init_frame_start(t_frame *game);
 // 99utils.c :
+int		key_hook(int keycode, t_frame *game);
+int		correct_exit(t_frame *game);
 void	error_exit(const char *s, int fd, char *line, char *line1);
 #endif  /* SO_LONG_H */
