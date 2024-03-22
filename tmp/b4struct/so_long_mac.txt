@@ -1,4 +1,0 @@
-minilibx_opengl.tgz is from project site: 
-https://projects.intra.42.fr/projects/so_long
-
-minilibx_opengl.tgz is unpacked into .\minilibx_macos

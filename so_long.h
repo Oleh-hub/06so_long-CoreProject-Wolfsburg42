@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 18:49:45 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 19:49:06 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ typedef struct s_peco
 	int		l;
 }				t_peco;
 
-//3mlx_utils.c
+// 3mlx_utils.c
+void	move_player(t_frame *game, int x, int y);
+void	move_a_d(int keycode, t_frame *game);
 void	init_map(t_frame *game);
 // 2map_check_utils.c:
 void	check_path(t_frame *game, int **marked);
