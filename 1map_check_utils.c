@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 14:34:45 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 16:10:08 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	iswall(char *s, char flag, int fd)
 		if (s[i] != '1')
 		{
 			if (flag == 'l')
-				ft_printf("Error: last line of *.ber file has a non '1' character\n");
+				ft_printf("Error: last line of map has a non '1' character\n");
 			error_exit("Error: map has non '1' chars\n", fd, s, NULL);
 		}
 		i++;
@@ -101,9 +101,9 @@ int	map_valid(int fd, t_frame *game)
 {
 	char	*line;
 	char	*next_l;
+	t_peco	*peco;
 	char	*line_trimmed;		// check if the map is a rectangler
 	char	*next_l_trimmed;	// check if the map is a rectangler
-	t_peco	*peco;
 
 	line = get_next_line(fd);
 	game->cols = iswall(line, ' ', fd);

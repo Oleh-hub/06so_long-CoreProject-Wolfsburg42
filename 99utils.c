@@ -6,33 +6,26 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:53:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 15:52:22 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 16:29:30 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// function calles for mlx_put_image_to_window() in compact way,
-// 2 allow such funcitons as init_map() to have less then 25 lines
-void	shrt_img2win(t_frame *game, void *img, int x, int y)
-{
-	mlx_put_image_to_window(game->mlx, game->mlx_win, img, \
-		x * PIC_SIZE, y * PIC_SIZE);
-}
 
 // puts the images that change its position/ dissapear or appear
 // 2 the window again
 
-void static change_positioin(t_frame *game, int x, int y)
+void static	change_positioin(t_frame *game, int x, int y)
 {
 	if (game->lastpos == '0')
 		mlx_put_image_to_window(game->mlx, game->mlx_win, \
 			game->floor, game->player[1] * PIC_SIZE, \
 			game->player[0] * PIC_SIZE);
-	else if (game->lastpos == 'E')	
-			mlx_put_image_to_window(game->mlx, game->mlx_win, \
-				game->door[0], game->player[1] * PIC_SIZE, \
-				game->player[0] * PIC_SIZE);
+	else if (game->lastpos == 'E')
+		mlx_put_image_to_window(game->mlx, game->mlx_win, \
+			game->door[0], game->player[1] * PIC_SIZE, \
+			game->player[0] * PIC_SIZE);
 	game->map[game->player[0]][game->player[1]] = game->lastpos;
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->player_img, \
 		x * PIC_SIZE, y * PIC_SIZE);
@@ -58,14 +51,14 @@ void	check_exit(t_frame *game)
 		{
 			x = -1;
 			while (++x < game->cols)
-				if(game->map[y][x] == 'E')
+				if (game->map[y][x] == 'E')
 					mlx_put_image_to_window(game->mlx, game->mlx_win, \
 						game->door[1], x * PIC_SIZE, y * PIC_SIZE);
 		}
 	}
 }
 
-static void move_player(t_frame *game, int x, int y)
+static void	move_player(t_frame *game, int x, int y)
 {
 	if (game->map[y][x] == '1')
 		return ;
@@ -92,16 +85,24 @@ static void move_player(t_frame *game, int x, int y)
 	}
 }
 
-static void move_a_d(int keycode, t_frame *game)
+// function calles for mlx_put_image_to_window() in compact way,
+// 2 allow such funcitons as init_map() and move_a_d() to have 
+// less then 25 lines
+void	shrt_img2win(t_frame *game, void *img, int x, int y)
+{
+	mlx_put_image_to_window(game->mlx, game->mlx_win, img, \
+		x * PIC_SIZE, y * PIC_SIZE);
+}
+
+static void	move_a_d(int keycode, t_frame *game)
 {
 	if (keycode == KEY_A)
 	{
 		if (game->direction != 'L')
 		{
 			game->player_img = game->player_sprite[1];
-			mlx_put_image_to_window(game->mlx, game->mlx_win, \
-				game->player_img, game->player[1] * PIC_SIZE, \
-				game->player[0] * PIC_SIZE);
+			shrt_img2win(game, game->player_img, game->player[1], \
+				game->player[0]);
 			game->direction = 'L';
 		}
 		else
@@ -112,9 +113,8 @@ static void move_a_d(int keycode, t_frame *game)
 		if (game->direction != 'R')
 		{
 			game->player_img = game->player_sprite[0];
-			mlx_put_image_to_window(game->mlx, game->mlx_win, \
-				game->player_img, game->player[1] * PIC_SIZE, \
-				game->player[0] * PIC_SIZE);
+			shrt_img2win(game, game->player_img, game->player[1], \
+				game->player[0]);
 			game->direction = 'R';
 		}
 		else
@@ -143,19 +143,20 @@ int	key_hook(int keycode, t_frame *game)
 // 2 - destroying  this *mlx_win window
 // 3 - freeing everythng allocated in form 't_frame *gane'
 // 4 - freeing game 't_frame *game' itself
+//
+// free(game->mlx); // should free mem alloced by mlx_init() but itdoes not!
 int	correct_exit(t_frame *game)
 {
-	int i;
+	int	i;
 
-	mlx_destroy_image(game->mlx, game->collectible); // frees allocated by mlx_xpm_file_to_image()
+	mlx_destroy_image(game->mlx, game->collectible);
 	mlx_destroy_image(game->mlx, game->player_sprite[0]);
 	mlx_destroy_image(game->mlx, game->player_sprite[1]);
 	mlx_destroy_image(game->mlx, game->wall);
 	mlx_destroy_image(game->mlx, game->floor);
 	mlx_destroy_image(game->mlx, game->door[0]);
 	mlx_destroy_image(game->mlx, game->door[1]);
-	mlx_destroy_window(game->mlx, game->mlx_win); // frees created by mlx_new_window()
-	// free(game->mlx); // should free mem alloced by mlx_init() but does not!
+	mlx_destroy_window(game->mlx, game->mlx_win);
 	i = -1;
 	while (game->map[++i])
 		free(game->map[i]);
