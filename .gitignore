@@ -1,5 +1,7 @@
 *.o
 *.a
 so_long
+99utils
+1map_check_utils
 *.dSYM/
 *.out
