@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 18:09:16 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 18:13:03 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,12 +91,13 @@ int	iswall(char *s, char flag, int fd)
 }
 
 // check if the map is a rectangler and colls for check of middle lins of maps
-t_peco	*map_valid_sub(t_frame *game, t_func_pars *to_free, t_peco *peco, int fd)
+t_peco	*map_valid_sub(t_frame *game, t_func_pars *to_free, t_peco *peco, \
+	int fd)
 {
 	char	*line_trimmed;
 	char	*next_l_trimmed;
 
-	line_trimmed = ft_strtrim(to_free->line, "\n"); 
+	line_trimmed = ft_strtrim(to_free->line, "\n");
 	next_l_trimmed = ft_strtrim(to_free->next_l, "\n");
 	if (ft_strlen(line_trimmed) != ft_strlen(next_l_trimmed))
 	{

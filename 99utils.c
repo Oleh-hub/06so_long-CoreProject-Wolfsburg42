@@ -6,12 +6,11 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:53:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 16:29:30 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 18:13:26 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
 
 // puts the images that change its position/ dissapear or appear
 // 2 the window again
