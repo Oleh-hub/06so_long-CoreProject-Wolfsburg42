@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 16:10:08 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 18:09:16 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,31 @@ int	iswall(char *s, char flag, int fd)
 	return (i);
 }
 
+// check if the map is a rectangler and colls for check of middle lins of maps
+t_peco	*map_valid_sub(t_frame *game, t_func_pars *to_free, t_peco *peco, int fd)
+{
+	char	*line_trimmed;
+	char	*next_l_trimmed;
+
+	line_trimmed = ft_strtrim(to_free->line, "\n"); 
+	next_l_trimmed = ft_strtrim(to_free->next_l, "\n");
+	if (ft_strlen(line_trimmed) != ft_strlen(next_l_trimmed))
+	{
+		free(line_trimmed);
+		free(next_l_trimmed);
+		error_exit("Error: map must be a rectangle\n", fd, \
+		to_free->line, to_free->next_l);
+	}
+	free(line_trimmed);
+	free(next_l_trimmed);
+	peco = ismiddle(to_free->line, to_free->next_l, game->cols, fd);
+	free(to_free->line);
+	to_free->line = to_free->next_l;
+	game->rows++;
+	to_free->next_l = get_next_line(fd);
+	return (peco);
+}
+
 /* validates the entire content of map,
 sets value to game->cols and game->rows
 PARAMETERS 
@@ -99,43 +124,28 @@ RETURNs
 the number of map rows if validation passes or 0 if not */
 int	map_valid(int fd, t_frame *game)
 {
-	char	*line;
-	char	*next_l;
-	t_peco	*peco;
-	char	*line_trimmed;		// check if the map is a rectangler
-	char	*next_l_trimmed;	// check if the map is a rectangler
+	t_peco		*peco;
+	t_func_pars	*to_free;
 
-	line = get_next_line(fd);
-	game->cols = iswall(line, ' ', fd);
-	free(line);
-	line = get_next_line(fd);
-	next_l = get_next_line(fd);
+	to_free = (t_func_pars *)malloc(sizeof(t_func_pars));
+	if (!to_free)
+		error_exit("Error: memory allocation fail\n", fd, NULL, NULL);
+	to_free->line = get_next_line(fd);
+	game->cols = iswall(to_free->line, ' ', fd);
+	free(to_free->line);
+	to_free->line = get_next_line(fd);
+	to_free->next_l = get_next_line(fd);
 	game->rows = 2;
-	while (next_l)
-	{
-		{ // check if the map is a rectangler
-			line_trimmed = ft_strtrim(line, "\n"); 
-			next_l_trimmed = ft_strtrim(next_l, "\n");
-			if (ft_strlen(line_trimmed) != ft_strlen(next_l_trimmed))
-			{
-				free(line_trimmed);
-				free(next_l_trimmed);
-				error_exit("Error: map must be a rectangle\n", fd, line, next_l);
-			}
-			free(line_trimmed);
-			free(next_l_trimmed);
-		}
-		peco = ismiddle(line, next_l, game->cols, fd);
-		free(line);
-		line = next_l;
-		game->rows++;
-		next_l = get_next_line(fd);
-	}
+	while (to_free->next_l)
+		peco = map_valid_sub(game, to_free, peco, fd);
 	if ((!peco->c) || !peco->o || !peco->p)
-		error_exit("Error: map must have min 1 'C0P'\n", fd, line, next_l);
-	if (game->cols != iswall(line, 'l', fd))
-		error_exit("Error: 1st wall line != last one\n", fd, line, NULL);
-	free(line);
+		error_exit("Error: map must have min 1 'C0P'\n", fd, to_free->line, \
+			to_free->next_l);
+	if (game->cols != iswall(to_free->line, 'l', fd))
+		error_exit("Error: 1st wall line != last one\n", fd, to_free->line, \
+			NULL);
+	free(to_free->line);
+	free(to_free);
 	return (game->rows);
 }
 

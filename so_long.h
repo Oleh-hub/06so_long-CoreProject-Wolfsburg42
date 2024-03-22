@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 08:33:07 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 17:34:38 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ typedef struct s_frame
 	int		collected;
 }			t_frame;
 
-/* paramters for the funciton called from ismiddle*/
+/* paramters for the funcitons:
+1-  peco_chrs_chck(), called from ismiddle()   
+2 - map_valid_sub */
 typedef struct s_func_pars
 {
 	char	*line;
