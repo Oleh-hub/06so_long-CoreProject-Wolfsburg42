@@ -6,37 +6,11 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 18:13:03 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 18:55:34 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// checks if the mapfile.ber has at least 1 'P', 1 'E' and counts 'C', '0' 
-// and '1's
-void	peco_chrs_chck(t_peco *peco, t_func_pars chr_chck)
-{
-	if (chr_chck.line[chr_chck.cols] == 'P')
-	{
-		if (peco->p >= 1)
-			error_exit("Error: let map have 1 'P'\n", chr_chck.fd,
-				chr_chck.line, chr_chck.next_l);
-		peco->p++;
-	}
-	if (chr_chck.line[chr_chck.cols] == 'E')
-	{
-		if (peco->e >= 1)
-			error_exit("Error: let map have 1 'E'\n", chr_chck.fd,
-				chr_chck.line, chr_chck.next_l);
-		peco->e++;
-	}
-	if (chr_chck.line[chr_chck.cols] == 'C')
-		peco->c++;
-	if (chr_chck.line[chr_chck.cols] == '0')
-		peco->o++;
-	if (chr_chck.line[chr_chck.cols] == '1')
-		peco->l++;
-}
 
 /* checking if map has only 1 'P' and 'E', > 0 'C' and '0', '1' at start
  and begining and is == cols */
@@ -91,8 +65,8 @@ int	iswall(char *s, char flag, int fd)
 }
 
 // check if the map is a rectangler and colls for check of middle lins of maps
-t_peco	*map_valid_sub(t_frame *game, t_func_pars *to_free, t_peco *peco, \
-	int fd)
+static t_peco	*map_valid_sub(t_frame *game, t_func_pars *to_free, t_peco \
+*peco, int fd)
 {
 	char	*line_trimmed;
 	char	*next_l_trimmed;

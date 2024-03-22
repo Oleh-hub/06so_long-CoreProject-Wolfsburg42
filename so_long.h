@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 17:34:38 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 18:49:45 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_peco
 	int		l;
 }				t_peco;
 
+//3mlx_utils.c
+void	init_map(t_frame *game);
 // 2map_check_utils.c:
 void	check_path(t_frame *game, int **marked);
 void	mark_path(t_frame *game, int row, int col, int **marked);
@@ -81,7 +83,6 @@ void	is_path(t_frame *game);
 void	is_pec(t_frame *game);
 void	init_frame_map(t_frame *game, int fd);
 // 1map_check_utils.c :
-void	peco_chrs_chck(t_peco *peco, t_func_pars chr_chck);
 t_peco	*ismiddle(char *line, char *next_l, int cols, int fd);
 int		iswall(char *s, char flag, int fd);
 int		map_valid(int fd, t_frame *game);
@@ -89,6 +90,7 @@ void	init_frame_start(t_frame *game);
 // 99utils.c :
 void	shrt_img2win(t_frame *game, void *img, int x, int y);
 int		key_hook(int keycode, t_frame *game);
+void	peco_chrs_chck(t_peco *peco, t_func_pars chr_chck);
 int		correct_exit(t_frame *game);
 void	error_exit(const char *s, int fd, char *line, char *line1);
 #endif  /* SO_LONG_H */

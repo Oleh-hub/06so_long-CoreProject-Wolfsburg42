@@ -5,6 +5,7 @@ NAME			:= so_long
 SRCS			:=	so_long.c			\
 					1map_check_utils.c	\
 					2map_check_utils.c	\
+					3mlx_utils.c		\
 					99utils.c
 OBJS			:= $(SRCS:.c=.o)
 OBJS_DIR		:= objs/

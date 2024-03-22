@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 14:59:35 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 18:33:23 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,6 @@
 // Nm -r ./so_long
 
 #include "so_long.h"
-
-// putting all images to mlx window - initiating the map
-static void	init_map(t_frame *game)
-{
-	int	col;
-	int	row;
-
-	col = -1;
-	while (++col < game->cols)
-	{
-		row = -1;
-		while (++row < game->rows)
-		{
-			if (game->map[row][col] == '1')
-				shrt_img2win(game, game->wall, col, row);
-			if (game->map[row][col] == '0')
-				shrt_img2win(game, game->floor, col, row);
-			if (game->map[row][col] == 'C')
-				shrt_img2win(game, game->collectible, col, row);
-			if (game->map[row][col] == 'P')
-				shrt_img2win(game, game->player_img, col, row);
-			if (game->map[row][col] == 'E')
-				shrt_img2win(game, game->door[0], col, row);
-		}
-	}
-}
 
 // reads images of wall, floor, 2 images of door (closed[0] and open[1])
 static void	read_walls_door(t_frame *game)

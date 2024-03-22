@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:53:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 18:13:26 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 18:49:27 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,32 @@ int	key_hook(int keycode, t_frame *game)
 	else if (keycode == KEY_S)
 		move_player(game, game->player[1], game->player[0] + 1);
 	return (0);
+}
+
+// checks if the mapfile.ber has at least 1 'P', 1 'E' and counts 'C', '0' 
+// and '1's
+void	peco_chrs_chck(t_peco *peco, t_func_pars chr_chck)
+{
+	if (chr_chck.line[chr_chck.cols] == 'P')
+	{
+		if (peco->p >= 1)
+			error_exit("Error: let map have 1 'P'\n", chr_chck.fd,
+				chr_chck.line, chr_chck.next_l);
+		peco->p++;
+	}
+	if (chr_chck.line[chr_chck.cols] == 'E')
+	{
+		if (peco->e >= 1)
+			error_exit("Error: let map have 1 'E'\n", chr_chck.fd,
+				chr_chck.line, chr_chck.next_l);
+		peco->e++;
+	}
+	if (chr_chck.line[chr_chck.cols] == 'C')
+		peco->c++;
+	if (chr_chck.line[chr_chck.cols] == '0')
+		peco->o++;
+	if (chr_chck.line[chr_chck.cols] == '1')
+		peco->l++;
 }
 
 // just a correct freeing the potantial memory leaks when the 
