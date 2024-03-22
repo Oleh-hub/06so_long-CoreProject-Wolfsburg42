@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:53:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 11:12:29 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 14:58:24 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ void static change_positioin(t_frame *game, int x, int y)
 			mlx_put_image_to_window(game->mlx, game->mlx_win, \
 				game->door[0], game->player[1] * PIC_SIZE, \
 				game->player[0] * PIC_SIZE);
-	game->lastpos = game->map[y][x];
+	game->map[game->player[0]][game->player[1]] = game->lastpos;
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->player_img, \
 		x * PIC_SIZE, y * PIC_SIZE);
+	game->lastpos = game->map[y][x];
 	game->player[0] = y;
 	game->player[1] = x;
 	game->steps++;
-	ft_printf("steps: %i\tHerbs: %i/%i\n", game->steps, game->collected, \
+	ft_printf("steps: %i\tCollectibles: %i/%i\n", game->steps, game->collected, \
 		game->collectibles);
 }
 
@@ -87,7 +88,8 @@ static void move_a_d(int keycode, t_frame *game)
 				game->player[0] * PIC_SIZE);
 			game->direction = 'R';
 		}
-		// else
+		else
+			move_player(game, game->player[1] + 1, game->player[0]);
 	}
 }
 

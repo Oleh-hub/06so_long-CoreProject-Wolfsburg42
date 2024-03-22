@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 13:16:07 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 14:34:45 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ the number of map rows if validation passes or 0 if not */
 int	map_valid(int fd, t_frame *game)
 {
 	char	*line;
-	char	*line_trimmed;
 	char	*next_l;
-	char	*next_l_trimmed;
+	char	*line_trimmed;		// check if the map is a rectangler
+	char	*next_l_trimmed;	// check if the map is a rectangler
 	t_peco	*peco;
 
 	line = get_next_line(fd);
@@ -113,16 +113,18 @@ int	map_valid(int fd, t_frame *game)
 	game->rows = 2;
 	while (next_l)
 	{
-		line_trimmed = ft_strtrim(line, "\n");
-		next_l_trimmed = ft_strtrim(next_l, "\n");
-		if (ft_strlen(line_trimmed) != ft_strlen(next_l_trimmed))
-		{
+		{ // check if the map is a rectangler
+			line_trimmed = ft_strtrim(line, "\n"); 
+			next_l_trimmed = ft_strtrim(next_l, "\n");
+			if (ft_strlen(line_trimmed) != ft_strlen(next_l_trimmed))
+			{
+				free(line_trimmed);
+				free(next_l_trimmed);
+				error_exit("Error: map must be a rectangle\n", fd, line, next_l);
+			}
 			free(line_trimmed);
 			free(next_l_trimmed);
-			error_exit("Error: map must be a rectangle\n", fd, line, next_l);
 		}
-		free(line_trimmed);
-		free(next_l_trimmed);
 		peco = ismiddle(line, next_l, game->cols, fd);
 		free(line);
 		line = next_l;

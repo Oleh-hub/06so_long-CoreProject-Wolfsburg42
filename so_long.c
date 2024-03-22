@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 08:33:29 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 14:59:35 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ static void	start_mlx(t_frame *game)
 	read_player_cllctbls(game);
 	read_walls_door(game);
 	init_map(game);
-	ft_printf("Steps: %i\tHerbs: %i/%i\n", game->steps, game->collectibles, \
-		game->collected);
+	ft_printf("Steps: %i\tCollectibles: %i/%i\n", game->steps, game->collected, \
+		game->collectibles);
 	mlx_hook(game->mlx_win, 2, 1L << 0, key_hook, game);
 	mlx_hook(game->mlx_win, 17, 1L << 2, correct_exit, game);
 	mlx_loop(game->mlx);
