@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:53:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 15:34:40 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 15:52:22 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,16 @@ static void move_player(t_frame *game, int x, int y)
 		}
 		change_positioin(game, x, y);
 	}
-	else if (game->map[y][x] == 'E')
+	else if (game->map[y][x] == 'E' && game->collectibles != game->collected)
 	{
-		// is_exit(game, x, y);
+		ft_printf("The collectibls are still there!\n");
+		change_positioin(game, x, y);
+	}
+	else
+	{
+		change_positioin(game, x, y);
+		ft_printf("CNOGRATULATION! YOU HAVE WON!\n");
+		exit(0);
 	}
 }
 
