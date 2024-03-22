@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:53:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 14:58:24 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 15:34:40 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	shrt_img2win(t_frame *game, void *img, int x, int y)
 		x * PIC_SIZE, y * PIC_SIZE);
 }
 
-//
+// puts the images that change its position/ dissapear or appear
+// 2 the window again
+
 void static change_positioin(t_frame *game, int x, int y)
 {
 	if (game->lastpos == '0')
@@ -42,6 +44,27 @@ void static change_positioin(t_frame *game, int x, int y)
 		game->collectibles);
 }
 
+// finds the 'E'xit coordinates and cchanges the 'E'xit door sprite if all 
+// 'C'ollectibles are collected
+void	check_exit(t_frame *game)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	if (game->collectibles == game->collected)
+	{
+		while (++y < game->rows)
+		{
+			x = -1;
+			while (++x < game->cols)
+				if(game->map[y][x] == 'E')
+					mlx_put_image_to_window(game->mlx, game->mlx_win, \
+						game->door[1], x * PIC_SIZE, y * PIC_SIZE);
+		}
+	}
+}
+
 static void move_player(t_frame *game, int x, int y)
 {
 	if (game->map[y][x] == '1')
@@ -52,15 +75,14 @@ static void move_player(t_frame *game, int x, int y)
 		{
 			game->map[y][x] = '0';
 			game->collected++;
-			// check_exit(game);
+			check_exit(game);
 		}
 		change_positioin(game, x, y);
 	}
 	else if (game->map[y][x] == 'E')
-		{
-			// is_exit(game, x, y);
-		}
-		
+	{
+		// is_exit(game, x, y);
+	}
 }
 
 static void move_a_d(int keycode, t_frame *game)
@@ -94,6 +116,7 @@ static void move_a_d(int keycode, t_frame *game)
 }
 
 // handling event KeyPress 02 of mlx_hook()
+// movement at left A, at right D, above W, downwards S
 int	key_hook(int keycode, t_frame *game)
 {
 	if (keycode == ESC_KEY)
@@ -101,9 +124,9 @@ int	key_hook(int keycode, t_frame *game)
 	else if (keycode == KEY_A || keycode == KEY_D)
 		move_a_d(keycode, game);
 	else if (keycode == KEY_W)
-		;
+		move_player(game, game->player[1], game->player[0] - 1);
 	else if (keycode == KEY_S)
-		;
+		move_player(game, game->player[1], game->player[0] + 1);
 	return (0);
 }
 
@@ -125,8 +148,7 @@ int	correct_exit(t_frame *game)
 	mlx_destroy_image(game->mlx, game->door[0]);
 	mlx_destroy_image(game->mlx, game->door[1]);
 	mlx_destroy_window(game->mlx, game->mlx_win); // frees created by mlx_new_window()
-	// mlx_destroy_display(game->mlx); // Correct method to free MiniLibX connection by chatgpt
-	// free(game->mlx); 	// frees allocated by mlx_init();
+	// free(game->mlx); // should free mem alloced by mlx_init() but does not!
 	i = -1;
 	while (game->map[++i])
 		free(game->map[i]);
