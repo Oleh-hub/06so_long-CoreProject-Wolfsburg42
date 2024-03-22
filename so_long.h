@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:53 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/21 19:37:33 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 08:33:07 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int		iswall(char *s, char flag, int fd);
 int		map_valid(int fd, t_frame *game);
 void	init_frame_start(t_frame *game);
 // 99utils.c :
+void	shrt_img2win(t_frame *game, void *img, int x, int y);
 int		key_hook(int keycode, t_frame *game);
 int		correct_exit(t_frame *game);
 void	error_exit(const char *s, int fd, char *line, char *line1);

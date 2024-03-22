@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/21 18:02:51 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 08:33:29 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@
 // Nm -r ./so_long
 
 #include "so_long.h"
-
-// function calles for mlx_put_image_to_window() in compact way,
-// 2 allow init_map() less then 25 lines
-static void	shrt_img2win(t_frame *game, void *img, int x, int y)
-{
-	mlx_put_image_to_window(game->mlx, game->mlx_win, img, \
-		x * PIC_SIZE, y * PIC_SIZE);
-}
 
 // putting all images to mlx window - initiating the map
 static void	init_map(t_frame *game)

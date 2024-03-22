@@ -6,21 +6,88 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:53:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/21 20:18:09 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/22 11:12:29 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+// function calles for mlx_put_image_to_window() in compact way,
+// 2 allow such funcitons as init_map() to have less then 25 lines
+void	shrt_img2win(t_frame *game, void *img, int x, int y)
+{
+	mlx_put_image_to_window(game->mlx, game->mlx_win, img, \
+		x * PIC_SIZE, y * PIC_SIZE);
+}
+
+//
+void static change_positioin(t_frame *game, int x, int y)
+{
+	if (game->lastpos == '0')
+		mlx_put_image_to_window(game->mlx, game->mlx_win, \
+			game->floor, game->player[1] * PIC_SIZE, \
+			game->player[0] * PIC_SIZE);
+	else if (game->lastpos == 'E')	
+			mlx_put_image_to_window(game->mlx, game->mlx_win, \
+				game->door[0], game->player[1] * PIC_SIZE, \
+				game->player[0] * PIC_SIZE);
+	game->lastpos = game->map[y][x];
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->player_img, \
+		x * PIC_SIZE, y * PIC_SIZE);
+	game->player[0] = y;
+	game->player[1] = x;
+	game->steps++;
+	ft_printf("steps: %i\tHerbs: %i/%i\n", game->steps, game->collected, \
+		game->collectibles);
+}
+
+static void move_player(t_frame *game, int x, int y)
+{
+	if (game->map[y][x] == '1')
+		return ;
+	else if (game->map[y][x] == '0' || game->map[y][x] == 'C')
+	{
+		if (game->map[y][x] == 'C')
+		{
+			game->map[y][x] = '0';
+			game->collected++;
+			// check_exit(game);
+		}
+		change_positioin(game, x, y);
+	}
+	else if (game->map[y][x] == 'E')
+		{
+			// is_exit(game, x, y);
+		}
+		
+}
+
 static void move_a_d(int keycode, t_frame *game)
 {
 	if (keycode == KEY_A)
 	{
-		
+		if (game->direction != 'L')
+		{
+			game->player_img = game->player_sprite[1];
+			mlx_put_image_to_window(game->mlx, game->mlx_win, \
+				game->player_img, game->player[1] * PIC_SIZE, \
+				game->player[0] * PIC_SIZE);
+			game->direction = 'L';
+		}
+		else
+			move_player(game, game->player[1] - 1, game->player[0]);
 	}
 	else if (keycode == KEY_D)
 	{
-		
+		if (game->direction != 'R')
+		{
+			game->player_img = game->player_sprite[0];
+			mlx_put_image_to_window(game->mlx, game->mlx_win, \
+				game->player_img, game->player[1] * PIC_SIZE, \
+				game->player[0] * PIC_SIZE);
+			game->direction = 'R';
+		}
+		// else
 	}
 }
 
