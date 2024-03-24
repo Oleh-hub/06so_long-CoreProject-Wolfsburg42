@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/24 16:52:07 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/24 21:31:20 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int	map_valid(int fd, t_frame *game)
 	game->rows = 2;
 	while (to_free->next_l)
 		peco = map_valid_sub(game, to_free, peco, fd);
-	if ((!peco->c) || !peco->o || !peco->p)
-		error_exit("Error: map must have min 1 'C0P'\n", fd, to_free->line, \
+	if ((!peco->c) || !peco->o || !peco->p || !peco->e)
+		error_exit("Error: map must have min 1 'C0EP'\n", fd, to_free->line, \
 			to_free->next_l);
 	if (game->cols != iswall(to_free->line, 'l', fd))
 		error_exit("Error: 1st wall line != last one\n", fd, to_free->line, \
