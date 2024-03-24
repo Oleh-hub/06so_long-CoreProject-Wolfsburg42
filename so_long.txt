@@ -38,7 +38,6 @@ drwxr-xr-x 4 oruban 2023_wolfsburg   30 Mär  5 11:09 ../
 they canm be open with "man -l mlx.1" command
 
  Tobias Riedel triedel has saved them as html s: file:///sgoinfre/triedel/public/man/mlx_new_image.html
- https://github.com/qst0/ft_libgfx/blob/master/man_mlx.md explanation of minilibx
 
 'strace valgrind ./so_long' gives details 
 
