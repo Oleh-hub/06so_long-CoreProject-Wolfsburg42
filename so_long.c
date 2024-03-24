@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:07:14 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 18:33:23 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/24 16:24:14 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 // https://github.com/jotavare/42-resources?tab=readme-ov-file#02-so_long
 // https://reactive.so/post/42-a-comprehensive-guide-to-so_long
 // https://www.youtube.com/watch?v=D1DeE-Qit3M&t=17s
+// work with pictures:
+// 1. find the proper *.png
+// 2. convert therm inot 80x80px with Karu compress:
+// 	https://compresskaru.com/32x32-image-converter-online/
+// 3. convert them into *.xpm
+// 4. check if they have the proper names like in imgs/
 
 // check of the functions used:
 // Nm -r ./so_long

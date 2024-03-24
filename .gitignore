@@ -5,3 +5,4 @@ so_long
 1map_check_utils
 *.dSYM/
 *.out
+.DS_Store
