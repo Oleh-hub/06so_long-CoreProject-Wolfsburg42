@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/22 18:55:34 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/24 16:52:07 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	iswall(char *s, char flag, int fd)
 		i++;
 	}
 	if (flag != 'l' && s[i] != '\n')
-		error_exit("Error: wall has not allowed chars\n", fd, s, NULL);
+		error_exit("Error: check the walls\n", fd, s, NULL);
 	return (i);
 }
 
