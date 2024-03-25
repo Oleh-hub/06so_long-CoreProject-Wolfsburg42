@@ -6,7 +6,7 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 18:23:38 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/24 21:31:20 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/25 08:36:08 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	iswall(char *s, char flag, int fd)
 	int	i;
 	int	map_len;
 
+	if (!s)
+		error_exit("Error: the map line must a character\n", fd, s, NULL);
 	if (flag == 'l')
 		map_len = ft_strlen(s);
 	else
