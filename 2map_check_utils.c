@@ -6,13 +6,15 @@
 /*   By: oruban <oruban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:00:34 by oruban            #+#    #+#             */
-/*   Updated: 2024/03/20 13:01:04 by oruban           ###   ########.fr       */
+/*   Updated: 2024/03/28 09:24:12 by oruban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 // checks if 'P' can reach 'E' and collect all 'C'
+// via comparition the position of P and E on the map with 
+// marked value. If the last == 0 -> the E or C is not reachable for the Player.
 void	check_path(t_frame *game, int **marked)
 {
 	int	i;
@@ -41,8 +43,10 @@ void	check_path(t_frame *game, int **marked)
 	}
 }
 
-//  this function recursively explores the grid in all directions, marking the
-//   path (marked) as it progresses through valid cells (not '1' ) on the grid.
+// This function uses Flood fill / Seed fill algorithm and recursively explores
+// the grid in all directions, marking the path (marked) as it progresses 
+// through valid cells (not '1' ) on the grid. All reachable cells become 1-s.
+
 void	mark_path(t_frame *game, int row, int col, int **marked)
 {
 	if (game->map[row][col] != '1' && marked[row][col] != 1)
@@ -55,7 +59,9 @@ void	mark_path(t_frame *game, int row, int col, int **marked)
 	}
 }
 
-// Makes a matrix int **marked, equivalent to char ** games->map
+// Makes a matrix int **marked, equivalent to char ** games->map,
+// calls for mark the path reachable for the Player and then 
+// checks if 
 void	is_path(t_frame *game)
 {
 	int	**marked;
